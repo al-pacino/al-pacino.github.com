@@ -1,0 +1,63 @@
+html, body
+{
+	margin: 0;
+	padding: 0;
+	background: #333333;
+}
+
+.book
+{
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background:#ff00ff;
+	background: url(../design_images/book_bg.png);
+}
+
+.book canvas
+{
+	position: absolute;
+	/*background: #008800;*/
+}
+
+.navigation
+{
+	cursor: default;
+	position: absolute;
+	/*background: #00ffff;*/
+	left: 0;
+	height: 30px;
+	bottom: -45px;
+	text-align: center;
+}
+
+ .navigation button
+{
+	border:solid 2px #cccccc;
+	font-family: Tahoma;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: pointer;
+	margin: 0 3px;
+	margin-bottom: 15px;
+}
+
+.navigation .page_go
+{
+	border-left-width: 1px;
+	margin-left: 0;
+}
+
+.navigation .page_number
+{
+	cursor: text;
+	border:solid 2px #cccccc;
+	border-right: none;
+	font-family: Tahoma;
+	font-size: 18px;
+	padding: 3px;
+	width: 90px;
+	margin-left: 3px;
+}
+

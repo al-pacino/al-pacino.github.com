@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="windows-1251">
+		<title>Book</title>
+		<link rel="stylesheet" href="css/book.css" />
+		<script src="js/book.js"></script>
+	</head>
+	<body>
+		<div class="book" id="book">
+			<canvas id="pageflip"></canvas>
+			<div class="navigation" id="nav">
+			<!--
+				<button onClick="book.goToPage(0);" id="nav_begin">&nbsp;begin&nbsp;</button><button onClick="book.change(-100);" id="nav_m100">&nbsp;&lt;&lt;&lt;&nbsp;</button><button onClick="book.change(-10);" id="nav_m10">&nbsp;&lt;&lt;&nbsp;</button><button onClick="book.change(-2);" id="nav_m1">&nbsp;&lt;&nbsp;</button><input type="text" value="1234/5678" onkeydown="if(event.keyCode==13){book.pageNumberGo();};" class="page_number" id="page_number" /><button class="page_go" onClick="book.pageNumberGo();">go</button><button onClick="book.change(2);" id="nav_p2">&nbsp;&gt;&nbsp;</button><button onClick="book.change(20);" id="nav_p20">&nbsp;&gt;&gt;&nbsp;</button><button onClick="book.change(100);" id="nav_p100">&nbsp;&gt;&gt;&gt;&nbsp;</button><button onClick="book.goToPage(book.pages_count-1);" id="nav_end">&nbsp;end&nbsp;</button><br />
+			-->
+			</div>
+		</div>
+		<span style="font-size:48px; color:white;" id="te"></span>
+		<script>
+			book.init();
+		</script>
+	</body>
+</html>
