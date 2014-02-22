@@ -5,7 +5,7 @@ function ge(el)
 }
 var book =
 {
-	pages_count: 228,
+	pages_count: 227,
 	page: 1, /* from 1 to pages_count */
 	pages_path_prefix: "pages/",
 	pages_path_suffix: ".png",
@@ -28,26 +28,8 @@ var book =
 	{
 		var _t = this;
 		
-		var book = ge("book");
-		var canvas = ge("pageflip");
-		var nav = ge("nav");
+		_t.initGui();
 				
-		_t.context = canvas.getContext("2d");
-		_t.canvas_width = 2 * _t.page_width;
-		_t.canvas_height = _t.page_height + 2 * _t.canvas_padding;
-		
-		book.style.width = _t.book_width+"px";
-		book.style.height = _t.book_height+"px";
-		book.style.marginLeft = (-_t.book_width / 2)+"px";
-		book.style.marginTop = (-_t.book_height / 2)+"px";
-		
-		nav.style.width = _t.book_width+"px";
-		
-		canvas.width = _t.canvas_width;
-		canvas.height = _t.canvas_height;
-		canvas.style.left = "0px";
-		canvas.style.top = (-_t.canvas_padding)+"px";
-		
 		_t.mouse = {x: 0, y: 0};
 		_t.page--;
 		_t.page = Math.max(0, Math.min(_t.pages_count-1, _t.page));
@@ -67,51 +49,114 @@ var book =
 				running: false,
 				dragging: false,
 			};
-			var but = document.createElement("button");
-			but.onclick = function(e){_t.onNavButtonClick(this);};
-			but.innerHTML = ""+(i+1);
-			//nav.appendChild(but);
+			
 		}
-		/*setTimeout(function()
-		{
-			setInterval(function()
-			{
-				_t.goToPage(Math.floor(Math.random()*_t.pages_count));
-			}, 250);
-		}, 1000);*/
 		
 		setInterval(function(){_t.render();}, 30);
 		document.addEventListener("mousemove",
 									function(e){_t.mmove(e);}, false);
-		book.addEventListener("mousedown", function(e){_t.mdown(e);}, false);
+		ge("book").addEventListener("mousedown",
+									function(e){_t.mdown(e);}, false);
 		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
-		/*var g = function(p)
+	},
+	initGui: function()
+	{
+		var _t = this;
+		
+		var book = ge("book");		
+		book.style.width = _t.book_width+"px";
+		book.style.height = _t.book_height+"px";
+		book.style.marginLeft = (-_t.book_width / 2)+"px";
+		book.style.marginTop = (-_t.book_height / 2)+"px";
+		
+		var canvas = document.createElement("canvas");				
+		_t.context = canvas.getContext("2d");
+		_t.canvas_width = 2 * _t.page_width;
+		_t.canvas_height = _t.page_height + 2 * _t.canvas_padding;		
+		canvas.width = _t.canvas_width;
+		canvas.height = _t.canvas_height;
+		canvas.style.left = "0px";
+		canvas.style.top = (-_t.canvas_padding)+"px";
+		book.appendChild(canvas);
+		
+		var nav = document.createElement("div");		
+		nav.style.width = _t.book_width+"px";
+		nav.className = "navigation";
+		book.appendChild(nav);
+		
+		_t.buttons = {};
+		_t.buttons.begin = _t.createButton(" begin ", function(e){
+			_t.goToPage(0); });
+		_t.buttons.end = _t.createButton(" end ", function(e){
+			_t.goToPage(_t.pages_count-1); });
+		
+		_t.buttons.m2 = _t.createButton(" &lt; ", function(e){
+			_t.change(-2); });
+		_t.buttons.p2 = _t.createButton(" &gt; ", function(e){
+			_t.change(2); });
+		
+		if(_t.pages_count >= 40)
 		{
-			if(p >= 1)
-			{
-				_t.context.clearRect(0, 0, _t.canvas_width, _t.canvas_height);
-				_t.drawFlip(0, p);
-				setTimeout(f, 1500, 1);
-				return;
-			}
-			_t.context.clearRect(0, 0, _t.canvas_width, _t.canvas_height);
-			_t.drawFlip(0, p);
-			setTimeout(g, 100, p+(1-0.6*p)*0.1);
-		};
-		var f = function(p)
+			_t.buttons.m20 = _t.createButton(" &lt;&lt; ", function(e){
+				_t.change(-20); });
+			_t.buttons.p20 = _t.createButton(" &gt;&gt; ", function(e){
+				_t.change(20); });
+		}
+		if(_t.pages_count >= 200)
 		{
-			if(p <= -1)
-			{
-				_t.context.clearRect(0, 0, _t.canvas_width, _t.canvas_height);
-			_t.drawFlip(0, p);
-				setTimeout(g, 1500, -1);
-				return;
-			}
-			_t.context.clearRect(0, 0, _t.canvas_width, _t.canvas_height);
-			_t.drawFlip(0, p);
-			setTimeout(f, 100, p+(-1-0.6*p)*0.1);
+			_t.buttons.m100 = _t.createButton(" &lt;&lt;&lt; ", function(e){
+				_t.change(-100); });
+			_t.buttons.p100 = _t.createButton(" &gt;&gt;&gt; ", function(e){
+				_t.change(100); });
+		}
+		
+		_t.input_text = document.createElement("input");
+		_t.input_text.className = "page_number";
+		_t.input_text.onkeydown = function(e){
+			if(e.keyCode == 13){ _t.pageNumberGo(); }
 		};
-		setTimeout(g, 500, 1);*/
+		_t.show_page_number = true;
+		_t.input_text.onfocus = function(e){
+			_t.show_page_number = false;
+			_t.input_text.select();
+		};
+		_t.input_text.onblur = function(e){
+			_t.show_page_number = true;
+		};
+		
+		var span = document.createElement("span");
+		span.innerHTML = "/ " + _t.pages_count;
+		
+		nav.appendChild(_t.buttons.begin);
+		if(_t.buttons.m100) nav.appendChild(_t.buttons.m100);
+		if(_t.buttons.m20) nav.appendChild(_t.buttons.m20);
+		nav.appendChild(_t.buttons.m2);
+		nav.appendChild(_t.input_text);
+		nav.appendChild(span);
+		nav.appendChild(_t.buttons.p2);
+		if(_t.buttons.p20) nav.appendChild(_t.buttons.p20);
+		if(_t.buttons.p100) nav.appendChild(_t.buttons.p100);
+		nav.appendChild(_t.buttons.end);
+		nav.appendChild(document.createElement("br"));
+		
+		_t.buttons.pages = [];
+		for(var i = 0; i < 13; i++)
+		{
+			var b = _t.createButton("",	function(e){
+				_t.onNavButtonClick(e);
+			});
+			_t.buttons.pages.push(b);
+			nav.appendChild(b);
+		}
+	},
+	createButton: function(caption, action)
+	{
+		var button = document.createElement("button");
+		button.innerHTML = caption;
+		if(arguments.length > 2)
+			button.className = arguments[2];
+		button.onclick = function(){action(this);};
+		return button;
 	},
 	change: function(p)
 	{
@@ -122,42 +167,87 @@ var book =
 	{
 		var _t = this;
 		np = parseInt(e.innerHTML);
-		np--;
-		_t.goToPage(np);
+		if(np > 0 && np <= _t.pages_count)
+			_t.goToPage(np-1);
 	},
-	showNavButtons: function()
+	activateButton: function(e, f)
+	{
+		if(!e)
+			return;
+		if(f)
+		{
+			e.setAttribute("disabled", "disabled");
+			e.className = "active";
+		}
+		else
+		{
+			e.removeAttribute("disabled");
+			e.className = "";
+		}
+	},
+	updateNavButtons: function()
 	{
 		var _t = this;
-	},
-	filterPageNumber: function()
-	{
-		var page_number = ge("page_number");
-		page_number.value = page_number.value.
-					replace(/[^0-9]/g, "").
-					replace(/^0+/, "").
-					substr(0,4);
+		
+		_t.activateButton(_t.buttons.begin, (_t.page == 0));
+		_t.activateButton(_t.buttons.end, (_t.page >= _t.pages_count-1));
+		_t.activateButton(_t.buttons.m100, ((_t.page-100) < 0));
+		_t.activateButton(_t.buttons.m20, ((_t.page-20) < 0));
+		_t.activateButton(_t.buttons.m2, ((_t.page-2) < 0));
+		_t.activateButton(_t.buttons.p2, ((_t.page+2) > _t.pages_count));
+		_t.activateButton(_t.buttons.p20, ((_t.page+20) > _t.pages_count));
+		_t.activateButton(_t.buttons.p100, ((_t.page+100) > _t.pages_count));
+		
+		/* pages */
+		var al = Math.floor(_t.page / 2);
+		var ar = Math.floor((_t.pages_count-_t.page) / 2);
+		
+		if(al < 6)
+			ar = Math.min(ar, 12-al);
+		else if(ar < 6)
+			al = Math.min(al, 12-ar);
+		else
+		{
+			al = 6;
+			ar = 6;
+		}
+		
+		for(var bi = 0, sp = _t.page-2*al, fp = _t.page+2*ar;
+												bi < 13; bi++, sp += 2)
+		{
+			if(sp > fp)
+			{
+				_t.buttons.pages[bi].style.display = "none";
+			}
+			else
+			{
+				_t.buttons.pages[bi].style.display = "inline";
+				_t.buttons.pages[bi].innerHTML = Math.max(sp, 1);
+				_t.activateButton(_t.buttons.pages[bi], sp == _t.page);
+			}
+		}
 	},
 	pageNumberGo: function()
 	{
 		var _t = this;
-		_t.filterPageNumber();
-		var np = ge("page_number").value;
+		var np = parseInt(_t.input_text.value.replace(/[^0-9]/g, "").
+							replace(/^0+/, "").substr(0,4));
 		if(np > 0 && np <= _t.pages_count)
 		{
 			_t.goToPage(np-1);
 		}
-		else
-		{
-			ge("page_number").value = _t.pages_count + "";
-		}
+		showPageNumber = true;
+		_t.input_text.blur();
 	},
 	goToPage: function(np)
 	{
 		var _t = this;
-		if(np < 0 || np >= _t.pages_count)
+		if(np < 0)
 			return;
 		if(np % 2)
 			np++;
+		if(np > _t.pages_count)
+			return;
 		if(np == _t.page)
 			return;
 		
@@ -292,14 +382,11 @@ var book =
 	{
 		var _t = this;
 		
-		_t.filterPageNumber();
-		var user_page = _t.page;
-		if(_t.page > 0 && _t.flips[_t.page-1].dragging)
-		{
-			user_page -= _t.flips[_t.page-1].progress > 0 ? 2 : 0; 
-		}
+		_t.updateNavButtons();
+		if(_t.show_page_number)
+			_t.input_text.value = Math.max(_t.page, 1);
 		
-		ge("te").innerHTML = _t.bg_page + " " + _t.page + " " + user_page;
+		//ge("te").innerHTML = _t.bg_page + " " + _t.page + " " + user_page;
 		
 		var co = _t.context;
 		co.clearRect(0, 0, _t.canvas_width, _t.canvas_height);

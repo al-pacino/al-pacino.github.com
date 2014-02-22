@@ -41,11 +41,30 @@ html, body
 	cursor: pointer;
 	margin: 0 3px;
 	margin-bottom: 15px;
+	color: #000000;
 }
 
-.navigation .page_go
+ .navigation .active
 {
-	border-left-width: 1px;
+	cursor: default;
+	margin: 0 3px;
+	margin-bottom: 15px;
+	color: #cccccc;
+	background: #777777;
+}
+
+.navigation span
+{
+	border:solid 2px #cccccc;
+	border-left: none;
+	font-family: Tahoma;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: default;
+	margin: 0 3px;
+	margin-bottom: 15px;
+	background: #dedede;
+	color: #777777;
 	margin-left: 0;
 }
 
@@ -57,7 +76,8 @@ html, body
 	font-family: Tahoma;
 	font-size: 18px;
 	padding: 3px;
-	width: 90px;
+	width: 42px;
 	margin-left: 3px;
+	color: #000000;
 }
 
