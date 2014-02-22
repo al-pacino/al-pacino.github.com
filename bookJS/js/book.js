@@ -62,6 +62,14 @@ var book =
 		ge("book").addEventListener("mousedown",
 									function(e){_t.mdown(e);}, false);
 		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
+		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
+		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
+		document.addEventListener("keydown", function(e){
+			if(e.keyCode == 39)
+				_t.change(2);
+			else if(e.keyCode == 37)
+				_t.change(-2);
+		}, false);
 	},
 	initGui: function()
 	{
