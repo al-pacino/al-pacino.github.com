@@ -5,10 +5,15 @@ function ge(el)
 }
 var book =
 {
-	pages_count: 227,
+	pages_count: 228,
 	page: 1, /* from 1 to pages_count */
 	pages_path_prefix: "pages/",
 	pages_path_suffix: ".png",
+	
+	preloder_image_path: "design_images/preloader.png",
+	preloader_frame_width: 100,
+	preloader_frame_height: 100,
+	preloader_frame_count: 12,
 
 	image_width: 360,
 	image_height: 480,
@@ -29,7 +34,11 @@ var book =
 		var _t = this;
 		
 		_t.initGui();
-				
+		
+		_t.preloader = document.createElement("img");
+		_t.preloader.src = _t.preloder_image_path;
+		_t.preloader_current_frame = 0;
+		
 		_t.mouse = {x: 0, y: 0};
 		_t.page--;
 		_t.page = Math.max(0, Math.min(_t.pages_count-1, _t.page));
@@ -41,13 +50,13 @@ var book =
 		for(var i = 0; i < _t.pages_count; i++)
 		{
 			_t.loadImage(i);
-			var t = i < _t.page ? -1 : 1;
 			_t.flips[i] =
 			{
-				progress: t,
-				target: t,
+				progress: 0,
+				target: 0,
 				running: false,
 				dragging: false,
+				loaded: false
 			};
 			
 		}
@@ -66,8 +75,8 @@ var book =
 		var book = ge("book");		
 		book.style.width = _t.book_width+"px";
 		book.style.height = _t.book_height+"px";
-		book.style.marginLeft = (-_t.book_width / 2)+"px";
-		book.style.marginTop = (-_t.book_height / 2)+"px";
+		book.style.marginLeft = Math.floor(-_t.book_width / 2)+"px";
+		book.style.marginTop = Math.floor(-_t.book_height / 2)+"px";
 		
 		var canvas = document.createElement("canvas");				
 		_t.context = canvas.getContext("2d");
@@ -79,6 +88,7 @@ var book =
 		canvas.style.top = (-_t.canvas_padding)+"px";
 		book.appendChild(canvas);
 		
+		/* navigation */
 		var nav = document.createElement("div");		
 		nav.style.width = _t.book_width+"px";
 		nav.className = "navigation";
@@ -374,13 +384,35 @@ var book =
 			return _t.pages[pagen];
 		
 		_t.pages[pagen] = document.createElement("img");
-		//_t.pages[pagen].onload = function(){ _t.render(); };
+		_t.pages[pagen].onload = new Function("\
+				book.flips["+pagen+"].loaded = true;");
 		_t.pages[pagen].src = _t.pages_path_prefix + (pagen+1)
 									+ _t.pages_path_suffix;
+	},
+	drawPreloader: function(x, y)
+	{
+		var _t = this;
+		var w = _t.preloader_frame_width;
+		var sx = 0;
+		if(arguments.length == 3)
+		{
+			w = arguments[2];
+		}
+		else if(arguments.length == 4)
+		{
+			sx = arguments[2];
+			w = arguments[3];
+		}
+		_t.context.drawImage(_t.preloader,
+					_t.preloader_current_frame * _t.preloader_frame_width + sx,
+					0, w, _t.preloader_frame_height, x, y,
+						w, _t.preloader_frame_height);
 	},
 	render: function()
 	{
 		var _t = this;
+		_t.preloader_current_frame = (_t.preloader_current_frame+1)%
+										_t.preloader_frame_count;
 		
 		_t.updateNavButtons();
 		if(_t.show_page_number)
@@ -391,31 +423,50 @@ var book =
 		var co = _t.context;
 		co.clearRect(0, 0, _t.canvas_width, _t.canvas_height);
 		if(_t.bg_page >= 0)
-			co.drawImage(_t.pages[_t.bg_page],
+		{
+			if(_t.flips[_t.bg_page].loaded)
+				co.drawImage(_t.pages[_t.bg_page],
 							_t.image_left + (_t.book_width-2*_t.page_width)/2,
 							_t.image_top + (_t.book_height-_t.page_height)/2
 								+ _t.canvas_padding);
+			else
+				_t.drawPreloader(_t.image_left +
+									(_t.book_width-2*_t.page_width)/2,
+								(_t.page_height-_t.preloader_frame_height)/2 + 
+									(_t.book_height-_t.page_height)/2
+										+ _t.canvas_padding);
+		}								
 		if(_t.bg_page+1 < _t.pages_count)
-			co.drawImage(_t.pages[_t.bg_page+1],
+		{
+			if(_t.flips[_t.bg_page+1].loaded)
+				co.drawImage(_t.pages[_t.bg_page+1],
 						_t.image_left + (_t.book_width)/2,
 						_t.image_top + (_t.book_height-_t.page_height)/2
 							+ _t.canvas_padding);
-							
+			else
+				_t.drawPreloader(_t.image_width + _t.image_left
+									+ (_t.book_width)/2 -
+									_t.preloader_frame_width,
+								(_t.page_height-_t.preloader_frame_height)/2 + 
+									(_t.book_height-_t.page_height)/2
+										+ _t.canvas_padding);
+		}
+		
 		for(var i = 0; i < _t.pages_count; i++)
 		{
 			if(_t.flips[i].dragging)
 			{
 				_t.flips[i].target = Math.max(
 						Math.min(_t.mouse.x/_t.page_width, 1), -1);
-				_t.flips[i].progress += (_t.flips[i].target - 
-											0.6*_t.flips[i].progress)*0.01;
+				_t.flips[i].progress += (1.3*_t.flips[i].target - 
+											_t.flips[i].progress)*0.1;
 				_t.drawFlip(i, _t.flips[i].progress);
 				continue;
 			}
 			if(_t.flips[i].running)
 			{
-				_t.flips[i].progress += (_t.flips[i].target - 
-											0.6*_t.flips[i].progress)*0.01;
+				_t.flips[i].progress += (1.3*_t.flips[i].target - 
+											_t.flips[i].progress)*0.1;
 				_t.drawFlip(i, _t.flips[i].progress);
 				if(Math.abs(_t.flips[i].progress) >= 1)
 				{
@@ -496,34 +547,46 @@ var book =
 		var foldX = _t.page_width * progress + foldWidth;		
 		var verticalOutdent = 20 * strength;
 		
+		var image_right = _t.image_width + _t.image_left;
+		var w = Math.max(image_right - foldX, 0);
+		if(w > 0)
+		{
+			if(w < _t.image_width)
+				_t.context.clearRect(foldX, 0,
+										w, _t.page_height);
+			else
+				_t.context.clearRect(_t.image_left, _t.image_top,
+										_t.image_width, _t.image_height);
+		}
 		if((p+1) >= 0 && (p+1) < _t.pages_count)
 		{
-		
-			var image_right = _t.page_width - _t.image_width - _t.image_left;
-			var w = Math.max(_t.page_width - foldX - image_right, 0);
-			if(w > 0)
+			if(_t.flips[p+1].loaded)
 			{
-				if(w < _t.image_width)
-					co.drawImage(_t.pages[p+1],
-									Math.max(_t.image_width - w, 0), 0,
-									w, _t.image_height,	foldX, _t.image_top,
-									w, _t.image_height);
-				else
-					co.drawImage(_t.pages[p+1], _t.image_left, _t.image_top);
+				if(w > 0)
+				{
+					if(w < _t.image_width)
+						co.drawImage(_t.pages[p+1],
+										Math.max(_t.image_width - w, 0), 0,
+										w, _t.image_height,	foldX, _t.image_top,
+										w, _t.image_height);
+					else
+						co.drawImage(_t.pages[p+1], _t.image_left,
+											_t.image_top);
+				}
 			}
-		}
-		else
-		{
-			var image_right = _t.page_width - _t.image_width - _t.image_left;
-			var w = Math.max(_t.page_width - foldX - image_right, 0);
-			if(w > 0)
+			else
 			{
-				if(w < _t.image_width)
-					_t.context.clearRect(foldX, 0,
-											w, _t.page_height);
-				else
-					_t.context.clearRect(_t.image_left, _t.image_top,
-											_t.image_width, _t.image_height);
+				if(w > 0)
+				{
+					if(w < _t.preloader_frame_width)
+						_t.drawPreloader(foldX,
+								(_t.page_height-_t.preloader_frame_height)/2,
+								Math.max(_t.preloader_frame_width - w, 0), w);
+					else
+						_t.drawPreloader(
+								image_right - _t.preloader_frame_width,
+								(_t.page_height-_t.preloader_frame_height)/2);
+				}
 			}
 		}
 		
@@ -586,14 +649,34 @@ var book =
 							foldX - foldWidth, _t.page_height + verticalOutdent);
 		co.lineTo(foldX - foldWidth, -verticalOutdent);
 		co.quadraticCurveTo(foldX, -verticalOutdent * 2, foldX, 0);
-				
+						
 		co.fill();
 		co.stroke();
 		
-		var kw = _t.image_width / _t.page_width;
 		if(p >= 0 && p < _t.pages_count)
-			co.drawImage(_t.pages[p], foldX - foldWidth + (1-kw)*foldWidth/2 ,
-							_t.image_top, kw * foldWidth, _t.image_height);
+		{
+			if(_t.flips[p].loaded)
+			{
+				if(foldWidth > _t.image_left)
+				{
+					var w = Math.min(foldWidth-_t.image_left, _t.image_width);
+					co.drawImage(_t.pages[p], 0, 0,
+									w, _t.image_height,
+									foldX-foldWidth+_t.image_left, _t.image_top,
+									w, _t.image_height);
+				}
+			}
+			else
+			{
+				if(foldWidth > _t.image_left)
+				{
+					var w = Math.min(foldWidth-_t.image_left,
+											_t.preloader_frame_width);
+					_t.drawPreloader(foldX-foldWidth+_t.image_left,
+							(_t.page_height-_t.preloader_frame_height)/2, w);
+				}
+			}
+		}
 		
 		co.restore();
 	}
