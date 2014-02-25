@@ -2,35 +2,33 @@
 <html>
 	<head>
 		<meta charset="windows-1251">
-		<title>Book</title>
-		<link rel="stylesheet" href="css/book.css" />
-		<script src="js/book.js"></script>
+		<title>index</title>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="js/common.js"></script>
+		<script src="js/db.js"></script>
 	</head>
 	<body>
-		<canvas>
-			<div class="noscript" id="nohtml5">
-				<div class="error">
-					<P><b>HTML5 Canvas</b> need to be supported in order to use the site.</P>
-					<P>To be able to use all of the site's functions, download and install one of the following browsers: <b>Opera</b>, <b>Chrome</b>, <b>Firefox</b>.</P>
-				</div>
+		<div class="wrapper">
+			<div class="head"><h1>Index</h1></div>
+			<div class="searching">
+				<form action="?">
+					<input type="text" class="searching_text" name="stext" id="stext" /><input type="submit" value="find" />
+					<br />
+					<p>
+						<input type="checkbox" id="check_writers">
+						<label for="check_writers">Lorem</label>
+						<br />
+						<input type="checkbox" id="check_captions">
+						<label for="check_captions">Ipsum</label>
+						<br />
+						<input type="checkbox" id="check_bio">
+						<label for="check_bio">Dolor</label>
+					</p>
+				</form>
 			</div>
-		</canvas>
-		<noscript>
-			<div class="noscript">
-				<div class="error">
-					<P><b>JavaScript</b> need to be supported in order to use the site.</P>
-					<P>To be able to use all of the site's functions, download and install one of the following browsers: <b>Opera</b>, <b>Chrome</b>, <b>Firefox</b>.</P>
-				</div>
+			<div class="index">
 			</div>
-		</noscript>
-		<div class="book" id="book"></div>
-		<script>
-			preventSelection(document);
-			var elem = document.createElement('canvas');
-			if(!!(elem.getContext && elem.getContext('2d')))
-			{
-				book.init();
-			}
-		</script>
+		</div>
 	</body>
 </html>

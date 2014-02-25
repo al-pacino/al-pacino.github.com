@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="windows-1251">
+		<title>Book</title>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/book.css" />
+		<script src="js/common.js"></script>
+		<script src="js/book.js"></script>
+	</head>
+	<body>
+		<canvas>
+			<div class="noscript" id="nohtml5">
+				<div class="error">
+					<P><b>HTML5 Canvas</b> need to be supported in order to use the site.</P>
+					<P>To be able to use all of the site's functions, download and install one of the following browsers: <b>Opera</b>, <b>Chrome</b>, <b>Firefox</b>.</P>
+				</div>
+			</div>
+		</canvas>
+		<noscript>
+			<div class="noscript">
+				<div class="error">
+					<P><b>JavaScript</b> need to be supported in order to use the site.</P>
+					<P>To be able to use all of the site's functions, download and install one of the following browsers: <b>Opera</b>, <b>Chrome</b>, <b>Firefox</b>.</P>
+				</div>
+			</div>
+		</noscript>
+		<div class="book" id="book"></div>
+		<script>
+			preventSelection(document);
+			var elem = document.createElement('canvas');
+			if(!!(elem.getContext && elem.getContext('2d')))
+			{
+				book.init();
+			}
+		</script>
+	</body>
+</html>

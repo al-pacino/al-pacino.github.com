@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="windows-1251">
+		<title>bio</title>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/bio.css" />
+		<script src="js/common.js"></script>
+		<script src="js/db.js"></script>
+		<script src="js/bio.js"></script>
+	</head>
+	<body>
+		<div class="wrapper" id="wrapper">
+			<div class="caption">
+				<h1 id="writers_name"></h1>
+				<span>(born <b id="writers_dateOfBirth"></b> &ndash; died <b id="writers_dateOfDeath"></b>)</span>
+			</div>
+			<div class="left_column">
+				<div class="portrait" id="portrait"></div>
+				<div class="others">
+					<a href="index.html" alt="go to Index" class="button">go to Index</a>
+				</div>
+			</div>
+			<div class="right_column">
+				<h2>Biography<a href="#" onClick="toggle('biography');">show/hide</a></h2>
+				<div class="overall_text" id="biography"></div>
+				<h2>Works<a href="#" onClick="toggle('works');">show/hide</a></h2>
+				<div class="overall_text works" id="works"></div>
+			</div>
+		</div>
+		<div class="notfound" id="notfound">
+			<p>Writers not found. Use Index page to navigation.</p>
+			<div class="notfound_button">
+				<a href="index.html" alt="go to Index" class="button">go to Index</a>
+			</div>
+		</div>
+		<script>
+			function initby(qs)
+			{
+				var re = /writer=([\d]+)/i;
+				if(re.test(qs))
+				{
+					var writer = parseInt(re.exec(qs)[1]);
+					if(writers[writer])
+					{
+						bio.init(writer);
+						return true;
+					}
+				}
+				return false;
+			}
+			if(!initby(location.search))
+			{
+				ge("notfound").style.display = "block";
+			}
+		</script>
+	</body>
+</html>
