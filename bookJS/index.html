@@ -7,10 +7,12 @@
 		<link rel="stylesheet" href="css/index.css" />
 		<script src="js/common.js"></script>
 		<script src="js/db.js"></script>
+		<script src="js/index.js"></script>
 	</head>
 	<body>
 		<div class="wrapper">
 			<div class="head"><h1>Index</h1></div>
+			<!--
 			<div class="searching">
 				<form action="?">
 					<input type="text" class="searching_text" name="stext" id="stext" /><input type="submit" value="find" />
@@ -27,8 +29,13 @@
 					</p>
 				</form>
 			</div>
-			<div class="index">
+			-->
+			<div class="index" id="index">
+				<button onClick="index.lastNameDirectClick();" id="lastNameDirectButton">Last name &uarr;</button><button onClick="index.lastNameInverseClick();" id="lastNameInverseButton">Last name &darr;</button><button onClick="index.firstNameDirectClick();" id="firstNameDirectButton">First name &uarr;</button><button onClick="index.firstNameInverseClick();" id="firstNameInverseButton">First name &darr;</button><button onClick="index.patronymDirectClick();" id="patronymDirectButton">Patronym &uarr;</button><button onClick="index.patronymInverseClick();" id="patronymInverseButton">Patronym &darr;</button><button onClick="index.dateOfBirthDirectClick();" id="dateOfBirthDirectButton">Date of birth &uarr;</button><button onClick="index.dateOfBirthInverseClick();" id="dateOfBirthInverseButton">Date of birth &darr;</button><button onClick="index.dateOfDeathDirectClick();" id="dateOfDeathDirectButton">Date of death &uarr;</button><button onClick="index.dateOfDeathInverseClick();" id="dateOfDeathInverseButton">Date of death &darr;</button>
 			</div>
 		</div>
+		<script>
+			index.init();
+		</script>
 	</body>
 </html>

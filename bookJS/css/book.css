@@ -4,6 +4,8 @@
 	position: fixed;
 	width: 100%;
 	height: 100%;
+	left: 0;
+	top: 0;
 	background: #000000;
 }
 
@@ -23,35 +25,96 @@
 	font-size: 17px;
 }
 
+.wrapper
+{
+	margin: 0px auto;
+}
+
+.caption
+{
+	cursor: default;
+	margin: 5px 0;
+	padding-top: 10px;
+	height: 80px;
+	margin-bottom: 20px;
+	background: #cccccc;
+	color: #000000;
+	border-bottom: solid 1px #999999;
+	text-align: center;
+	padding-bottom: 10px;
+}
+.caption .button
+{
+	position: relative;
+	display: block;
+	left: 10px;
+	top: -82px;
+	width: 150px;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: pointer;
+	border:outset 2px #770000;
+	background: #990000;
+	color: #ffffff;
+	text-decoration: none;
+}
+.caption .writers_work
+{
+	color: #000000;
+	text-decoration: underline;
+	cursor: pointer;
+	font-weight: bold;
+	display: block;
+	margin-top: 10px;
+	font-size: 24px;
+}
+.caption .writers_name
+{
+	color: #000000;
+	text-decoration: underline;
+	cursor: pointer;
+	font-weight: bold;
+	display: block;
+	font-size: 20px;
+}
+.caption span
+{
+	font-size: 16px;
+}
+
 .book
 {
 	cursor: default;
 	display: block;
-	position: absolute;
-	left: 50%;
-	top: 50%;
+	/*position: absolute;*/
+	/*left: 50%;
+	top: 50%;*/
 	background:#ff00ff;
 	background: url(../design_images/book_bg.png);
 }
 
 .book canvas
 {
-	position: absolute;
+	position: relative;
 	/*background: #008800;*/
 }
 
 .navigation
 {
 	cursor: default;
-	position: absolute;
+	margin-top: 15px;
+	/*position: absolute;*/
 	/*background: #00ffff;*/
 	left: 0;
 	height: 30px;
-	bottom: -45px;
+	/*bottom: -45px;*/
 	text-align: center;
 }
 
-a.button
+button
 {
 	border:solid 2px #cccccc;
 	font-family: Tahoma;
@@ -64,7 +127,7 @@ a.button
 	background: #ffffff;
 }
 
- .navigation .active
+.navigation .active
 {
 	cursor: default;
 	margin: 0 3px;
@@ -101,3 +164,36 @@ a.button
 	color: #000000;
 }
 
+.notfound
+{
+	display: none;
+}
+
+.notfound .error
+{
+	padding-top: 40px;
+	height: 100px;
+}
+
+.notfound .notfound_button
+{
+	padding: 10px 50px;
+}
+
+.notfound_button a
+{
+	display: block;
+	text-align: center;
+	border:outset 2px #777777;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: pointer;
+	margin: 0 3px;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+.notfound_button  a:hover
+{
+	background: #aaaaaa;
+}

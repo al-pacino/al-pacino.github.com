@@ -11,3 +11,8 @@ h1, h2, span, p, a, div, ol, ul, li
 	padding: 0;
 	font-family: Tahoma, Sans-Serif;
 }
+
+img
+{
+	border-style: none;
+}

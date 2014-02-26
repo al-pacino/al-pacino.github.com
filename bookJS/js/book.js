@@ -20,15 +20,21 @@ var book =
 	
 	page_width: 400,
 	page_height: 580,
-	canvas_padding: 50,
+	canvas_padding: 35,
 		
 	progress: 1,
 
-	init: function()
+	init: function(writer, book)
 	{
 		var _t = this;
+		_t.pages_count = writers[writer].works[book].pages_count;
+		_t.pages_path_prefix = basic_path + writers[writer].path + writers[writer].works[book].path;
+		if(writers[writer].works[book].begin_page)
+		{
+			_t.page = writers[writer].works[book].begin_page;
+		}
 		
-		_t.initGui();
+		_t.initGui(writer, book);
 		
 		_t.preloader = document.createElement("img");
 		_t.preloader.src = _t.preloder_image_path;
@@ -71,15 +77,33 @@ var book =
 				_t.change(-2);
 		}, false);
 	},
-	initGui: function()
+	initGui: function(w, work)
 	{
 		var _t = this;
+				
+		var wrapper = ge("wrapper");		
+		wrapper.style.width = _t.book_width+"px";
+		
+		var wp = writers[w].personal;
+		
+		var w_name = ge("writers_name");
+		w_name.innerHTML = wp.lastName + " " + wp.firstName + " " + wp.patronym;
+		w_name.href = "bio.html?writer=" + w;
+		ge("writers_dateOfBirth").innerHTML = wp.dateOfBirth;
+		ge("writers_dateOfDeath").innerHTML = wp.dateOfDeath;
+		var w_work = ge("writers_work");
+		w_work.innerHTML = writers[w].works[work].title;
+		if(writers[w].works[work].begin_page)
+			w_work.onclick = new Function("book.goToPage("+
+								(writers[w].works[work].begin_page-1)+");");
+		else
+			w_work.onclick = new Function("book.goToPage(0);");
 		
 		var book = ge("book");		
 		book.style.width = _t.book_width+"px";
 		book.style.height = _t.book_height+"px";
-		book.style.marginLeft = Math.floor(-_t.book_width / 2)+"px";
-		book.style.marginTop = Math.floor(-_t.book_height / 2)+"px";
+		//book.style.marginLeft = Math.floor(-_t.book_width / 2)+"px";
+		//book.style.marginTop = Math.floor(-_t.book_height / 2)+"px";
 		
 		var canvas = document.createElement("canvas");				
 		_t.context = canvas.getContext("2d");
@@ -95,7 +119,7 @@ var book =
 		var nav = document.createElement("div");		
 		nav.style.width = _t.book_width+"px";
 		nav.className = "navigation";
-		book.appendChild(nav);
+		ge("wrapper").appendChild(nav);
 		
 		_t.buttons = {};
 		_t.buttons.begin = _t.createButton(" begin ", function(e){
