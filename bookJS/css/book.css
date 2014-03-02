@@ -48,10 +48,10 @@
 	position: relative;
 	display: block;
 	left: 10px;
-	top: -82px;
+	top: -80px;
 	width: 150px;
-	height: 70px;
-	line-height: 70px;
+	height: 32px;
+	line-height: 32px;
 	text-align: center;
 	font-size: 18px;
 	padding: 3px 5px;
@@ -69,7 +69,7 @@
 	font-weight: bold;
 	display: block;
 	margin-top: 10px;
-	font-size: 24px;
+	font-size: 20px;
 }
 .caption .writers_name
 {

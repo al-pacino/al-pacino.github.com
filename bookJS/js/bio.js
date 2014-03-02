@@ -33,6 +33,7 @@ var bio =
 		var a = document.createElement("a");
 		a.alt = "full size portrait";
 		a.title = "full size portrait";
+		a.target = "_blank";
 		a.href = basic_path + w.path + w.portrait.full_image;
 		var i = document.createElement("img");
 		i.width = "200";

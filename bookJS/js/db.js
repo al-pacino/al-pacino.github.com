@@ -1,4 +1,4 @@
-var basic_path = "writers/";
+﻿var basic_path = "writers/";
 var writers =
 [
 	{
@@ -129,6 +129,69 @@ var writers =
 				"title": "The Idiot",
 				"path": "works/The_Idiot/",
 				"pages_count": 282
+			}
+		]
+	},
+	{
+		"path": "Gruner_F_L/",
+		"portrait":
+		{
+			"image": "portrait.jpg",
+			"full_image": "portrait_full.png"
+		},
+		"personal":
+		{
+			"firstName": "Леопольд",
+			"patronym": "Федорович",
+			"lastName": "Грунер",
+			"dateOfBirth": 1839,
+			"dateOfDeath": 1917
+		},
+		"biography":
+"Известный русский ботаник.... работал в городе Ельцы...",
+		"works":
+		[
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава I",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 1
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава II",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 8
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава III",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 15
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава IV",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 23
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава V",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 33
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава VI",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 44
+			},
+			{
+				"title": "Список растениий, собранных в окрестности города Ельцы. Глава VII",
+				"path": "works/spisok/",
+				"pages_count": 61,
+				"begin_page": 55
 			}
 		]
 	}
