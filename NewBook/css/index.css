@@ -1,0 +1,108 @@
+.head h1
+{
+	padding-top: 10px;
+	text-align: center;
+	color: #000000;
+	font-size: 32px;
+}
+
+.head h3
+{
+	text-align: center;
+	color: #000000;
+	font-size: 24px;
+	padding-bottom: 10px;
+}
+
+.left_column
+{
+	background: #aaaaaa;
+	float: left;
+	width: 300px;
+	padding: 0px;
+}
+
+.portrait
+{
+	background: #999999;
+	padding-bottom: 5px;
+}
+
+.big_button
+{
+	display: block;
+	margin: 40px auto;
+	width: 200px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	font-size: 24px;
+	padding: 6px 10px;
+	cursor: pointer;
+	border:outset 2px #770000;
+	background: #990000;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.big_button:hover
+{
+	background: #cc0000;
+}
+
+.right_column
+{
+	min-height: 600px;
+	border-left: solid 5px #999999;
+	margin-left: 300px;
+	background: #cccccc;
+}
+
+h2
+{
+	margin-top: 35px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+	border-top: solid 5px #999999;
+	border-bottom: solid 5px #999999;
+	color: #000000;
+	background: #aaaaaa;
+	font-size: 24px;
+}
+
+ul
+{
+	list-style: none;
+	padding-top: 15px;
+	padding-left: 15px;
+	height: 62px;
+}
+
+li
+{
+	display: block;
+	float: left;
+	margin-right: 14px;
+}
+
+a.button
+{
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	border:outset 2px #777777;
+	font-size: 18px;
+	width: 188px;
+	height: 48px;
+	padding: 6px 10px;
+	cursor: pointer;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+
+a.button:hover
+{
+	background: #aaaaaa;
+}

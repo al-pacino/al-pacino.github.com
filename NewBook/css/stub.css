@@ -1,0 +1,42 @@
+.middle
+{
+	height: 400px;
+	border-bottom: solid 5px #999999;
+	text-align: center;
+	line-height: 380px;
+	color: #000000;
+	font-size: 64px;
+}
+
+.head h1
+{
+	padding: 10px 0;
+	text-align: center;
+	color: #000000;
+	font-size: 32px;
+}
+
+.bottom
+{
+	background: #cccccc;
+	padding: 15px;
+}
+
+a.button
+{
+	display: inline-block;
+	text-align: center;
+	border:outset 2px #777777;
+	font-size: 24px;
+	padding: 6px 10px;
+	margin: 0;
+	cursor: pointer;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+
+a.button:hover
+{
+	background: #aaaaaa;
+}

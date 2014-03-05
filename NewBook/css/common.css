@@ -1,0 +1,39 @@
+html, body, ol, ul, h1, h2, h3, div, span
+{
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, Sans-Serif;
+}
+
+html, body
+{
+	background: #333333 url(../design_images/bg.jpg);
+}
+
+body
+{
+	padding: 30px 50px;
+	min-width: 1000px;
+}
+
+.wrap
+{
+	margin: 0 auto;
+	border: solid 5px #999999;
+	background: #aaaaaa;
+	width: 1000px;
+}
+
+.head
+{
+	background: #cccccc;
+	border-bottom: solid 5px #999999;
+}
+
+.copyright
+{
+	font-size: 16px;
+	color: #cccccc;
+	text-align: center;
+	margin-top: 25px;
+}
