@@ -37,6 +37,7 @@ var book =
 		_t.pages_path_prefix = b.path;
 		_t.page = p;
 		ge("title").innerHTML = b.title;
+		document.title = b.title;
 		
 		_t.initGui();
 		

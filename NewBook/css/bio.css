@@ -1,0 +1,10 @@
+.head h3
+{
+	font-size: 24px;
+}
+
+img
+{
+	display: block;
+	border-top: solid 5px #999999;
+}
