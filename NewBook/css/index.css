@@ -1,3 +1,14 @@
+body
+{
+	overflow-y: scroll;
+	min-width: 1000px;
+}
+
+.wrap
+{
+	width: 1000px;
+}
+
 .head h1
 {
 	padding-top: 10px;
@@ -60,7 +71,6 @@
 
 h2
 {
-	margin-top: 35px;
 	padding-top: 20px;
 	padding-bottom: 10px;
 	text-align: center;
@@ -90,8 +100,7 @@ a.button
 {
 	display: block;
 	text-align: center;
-	vertical-align: middle;
-	border:outset 2px #777777;
+	border: outset 2px #777777;
 	font-size: 18px;
 	width: 188px;
 	height: 48px;
@@ -105,4 +114,59 @@ a.button
 a.button:hover
 {
 	background: #aaaaaa;
+}
+
+a.button.additional
+{
+	border: solid 2px #777777;
+	background: #999999;
+}
+
+a.button.additional span
+{
+	
+	font-weight: bold;
+	color: #990000;
+}
+
+a.button.additional:hover
+{
+	background: #bbbbbb;
+}
+
+a.button.additional.opened
+{
+	background: #bbbbbb;
+	padding-bottom: 25px;
+	border-bottom: none;
+}
+a.button.additional.opened:hover
+{
+	text-decoration: underline;
+}
+a.button.additional.opened:hover span
+{
+	text-decoration: underline;
+}
+
+div.additional
+{
+	padding-bottom: 35px;
+}
+
+div.additional ul
+{
+	display: none;
+}
+
+div.additional.opened
+{
+	background: #bbbbbb;
+	margin-top: 17px;
+	border-top: solid 2px #777777;
+}
+
+.additional.opened ul
+{
+	display: block;
 }

@@ -5,6 +5,8 @@
 		<title>Index</title>
 		<link rel="stylesheet" href="css/common.css" />
 		<link rel="stylesheet" href="css/index.css" />
+		<script src="js/common.js"></script>
+		<script src="js/index.js"></script>
 	</head>
 	<body>
 		<div class="wrap">
@@ -15,7 +17,7 @@
 						<img src="images/portrait_Gruner.jpg" width="300" height="454" alt="Gruner" title="Gruner" />
 					</a>
 				</div>
-				<a href="glossary.html" class="big_button">Glossary</a>
+				<a href="glossary.html" class="big_button">Глоссарий</a>
 			</div>
 			<div class="right_column">
 				<ul>
@@ -26,8 +28,20 @@
 				<ul>
 					<li><a href="index.html" class="button">Список трудов</a></li>
 					<li><a href="index.html" class="button">Письма</a></li>
-					<li><a href="index.html" class="button">Дополнительные материалы</a></li>
+					<li><a href="#additional_data" class="button additional" onClick="toggleAdditional(this, 'additional_data');">Дополнительные материалы<span>&darr;</span></a></li>
 				</ul>
+				<div class="additional" id="additional_data">
+					<ul>
+						<li><a href="index.html" class="button">Дополнительные материалы #1</a></li>
+						<li><a href="index.html" class="button">Дополнительные материалы #2</a></li>
+						<li><a href="index.html" class="button">Дополнительные материалы #3</a></li>
+					</ul>
+					<ul>
+						<li><a href="index.html" class="button">Дополнительные материалы #4</a></li>
+						<li><a href="index.html" class="button">Дополнительные материалы #5</a></li>
+						<li><a href="index.html" class="button">Дополнительные материалы #6</a></li>
+					</ul>
+				</div>
 				<h2>Труды Грунера</h2>
 				<ul>
 					<li><a href="index.html" class="button">Растения собранные близ города Ельца</a></li>
@@ -37,8 +51,20 @@
 				<ul>
 					<li><a href="index.html" class="button">Труд #2</a></li>
 					<li><a href="index.html" class="button">Труд #3</a></li>
-					<li><a href="index.html" class="button">Список трудов</a></li>
+					<li><a href="#additional_works" class="button additional" onClick="toggleAdditional(this, 'additional_works');">Список трудов<span>&darr;</span></a></li>
 				</ul>
+				<div class="additional" id="additional_works">
+					<ul>
+						<li><a href="index.html" class="button">Труд #4</a></li>
+						<li><a href="index.html" class="button">Труд #5</a></li>
+						<li><a href="index.html" class="button">Труд #6</a></li>
+					</ul>
+					<ul>
+						<li><a href="index.html" class="button">Труд #7</a></li>
+						<li><a href="index.html" class="button">Труд #8</a></li>
+						<li><a href="index.html" class="button">Труд #9</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="copyright">University Edition v 1.0</div>

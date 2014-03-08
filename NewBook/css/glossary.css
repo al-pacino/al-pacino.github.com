@@ -1,0 +1,136 @@
+body
+{
+	overflow-y: scroll;
+}
+
+.head h1
+{
+	padding-top: 10px;
+	text-align: center;
+	color: #000000;
+	font-size: 24px;
+	padding-bottom: 7px;
+}
+
+.head h3
+{
+	text-align: center;
+	color: #000000;
+	font-size: 32px;
+	padding: 10px 0;
+	border-top: solid 3px #999999;
+	background: #aaaaaa;
+}
+
+.head
+{
+	border-bottom: none;
+}
+
+.glossary
+{
+	border-top: solid 5px #999999;
+	background: #cccccc;
+	padding-bottom: 30px;
+}
+
+.nav
+{
+	background: #cccccc;
+	padding: 15px;
+	border-top: solid 5px #999999;
+}
+
+.glossary span
+{
+	padding: 3px;
+}
+
+button, a.button
+{
+	display: inline-block;
+	text-align: center;
+	border:outset 2px #777777;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: pointer;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+button:hover, a.button:hover
+{
+	background: #aaaaaa;
+}
+
+button.red, a.button.red
+{
+	border:outset 2px #770000;
+	background: #990000;
+	color: #ffffff;
+}
+
+a.button.red
+{
+	font-size: 24px;
+}
+
+a.button.red:hover
+{
+	background: #cc0000;
+}
+
+.glossary ol
+{
+	margin-left: 50px;
+	margin-top: 10px;
+}
+.glossary li
+{
+	font-size: 18px;
+	margin-bottom: 0.4em;
+	color: #800000;
+}
+
+.glossary li a
+{
+	color: #000000;
+	text-decoration: underline;
+	font-size: 18px;
+}
+
+.glossary li a:hover
+{
+	color: #777777;
+	text-decoration: none;
+}
+
+.glossary li a:visited
+{
+	color: #777777;
+}
+
+a.abc_letter
+{
+	margin-right: 5px;
+	font-size: 24px;
+}
+
+a.start_letter
+{
+	margin-top: 20px;
+	cursor: default;
+	display: block;
+	text-decoration: none;
+	font-size: 18px;
+	color: #000000;
+	padding: 5px;
+	margin-bottom: 0;
+	background: #ededed;
+	border-bottom: solid 1px #ababab;
+	overflow: auto;
+}
+a.start_letter:hover
+{
+	color: #000000;
+}

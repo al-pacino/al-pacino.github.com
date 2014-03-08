@@ -13,7 +13,7 @@ html, body
 body
 {
 	padding: 30px 50px;
-	min-width: 1000px;
+	min-width: 850px;
 }
 
 .wrap
@@ -21,7 +21,7 @@ body
 	margin: 0 auto;
 	border: solid 5px #999999;
 	background: #aaaaaa;
-	width: 1000px;
+	width: 850px;
 }
 
 .head
