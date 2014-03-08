@@ -105,19 +105,31 @@ var glossary =
 	{
 		return function(a, b)
 		{
-			var ai = Math.floor(abc.indexOf(a.title.charAt(0)) / 2);
-			var bi = Math.floor(abc.indexOf(b.title.charAt(0)) / 2);
-			if(ai < bi)
+			for(var i = 0; i < Math.min(a.title.length, b.title.length); i++)
+			{
+				var ai = Math.floor(abc.indexOf(a.title.charAt(i)) / 2);
+				var bi = Math.floor(abc.indexOf(b.title.charAt(i)) / 2);
+				if(ai < bi)
+					return -1;
+				else if(ai > bi)
+					return 1;
+			}
+			if(a.title.length < b.title.length)
 				return -1;
-			else if(ai == bi)
+			else if(a.title.length == b.title.length)
 				return 0;
-			return 1;
+			else
+				return 1;
 		}
 	}
 };
 
 var rus_db =
 [
+	{
+		"title": "Аксёнов Иван Александрович",
+		"href": "#4"
+	},
 	{
 		"title": "Агапов Борис Николаевич",
 		"href": "#1"
@@ -129,10 +141,6 @@ var rus_db =
 	{
 		"title": "Адамович Георгий Викторович",
 		"href": "#3"
-	},
-	{
-		"title": "Аксёнов Иван Александрович",
-		"href": "#4"
 	},
 	{
 		"title": "Анисимов Юлиан Павлович",
