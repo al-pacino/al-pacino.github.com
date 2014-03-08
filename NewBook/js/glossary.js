@@ -59,8 +59,13 @@ var glossary =
 				var h = document.createElement("a");
 				h.name = "letter_start" + i;
 				h.id = "letter_start" + i;
+				h.href = "#body";
 				h.className = "start_letter";
 				h.innerHTML = db[i].title.charAt(0);
+				
+				var b = document.createElement("span");
+				b.innerHTML = "На верх&uarr;";
+				h.appendChild(b);
 				
 				list_db.appendChild(h);
 				ol = document.createElement("ol");

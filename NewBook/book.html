@@ -12,7 +12,7 @@
 	</head>
 	<body name="body" id="body">
 		<div class="wrap" id="wrapper">
-			<div class="head"><h1>Русский Ботаник Л. Грунер</h1><h3 id="title"></h3></div>
+			<div class="head"><h1>Русский Ботаник Л. Грунер (1839 &ndash; 1917)</h1><h3 id="title"></h3></div>
 			<div class="nav"><a href="index.html" class="button red">На главную</a>&nbsp;&nbsp;&nbsp;<a href="glossary.html" class="button red">Глоссарий</a></div>
 			<div id="book" class="book"></div>
 			<div id="nav" class="navigation"></div>
@@ -52,15 +52,12 @@
 				function initby(qs)
 				{
 					var re1 = /book=([\d]+)/i;
-					var re2 = /page=([\d]+)/i;
 					if(re1.test(qs))
 					{
-						var p = 1, b = parseInt(re1.exec(qs)[1]);
-						if(re2.test(qs))
-							p = parseInt(re2.exec(qs)[1]);
+						var b = parseInt(re1.exec(qs)[1]);
 						if(books[b])
 						{
-							book.init(books[b], p);
+							book.init(books[b]);
 							return true;
 						}
 					}

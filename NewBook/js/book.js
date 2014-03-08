@@ -25,7 +25,7 @@ var book =
 		
 	progress: 1,
 
-	init: function(b, p)
+	init: function(b)
 	{
 		var _t = this;
 		/*_t.pages_count = writers[writer].works[book].pages_count;
@@ -36,7 +36,9 @@ var book =
 		}*/
 		_t.pages_count = b.pages_count;
 		_t.pages_path_prefix = b.path;
-		_t.page = p;
+		
+		_t.page = _t.getPageNumberFromLocationHash();
+		
 		ge("title").innerHTML = b.title;
 		document.title = b.title;
 		
@@ -82,6 +84,15 @@ var book =
 			else if(e.keyCode == 37)
 				_t.change(-2);
 		}, false);
+	},
+	getPageNumberFromLocationHash: function()
+	{
+		var _t = this;
+		var re1 = /#page([\d]+)/i;
+		if(re1.test(location.hash))
+			return re1.exec(location.hash)[1];
+		else
+			return _t.page;
 	},
 	initGui: function()
 	{
@@ -275,7 +286,7 @@ var book =
 			return;
 		if(np == _t.page)
 			return;
-		
+					
 		var lp, rp;
 		for(lp = 0; lp < _t.pages_count; lp++)
 			if(_t.flips[lp].running)
@@ -388,6 +399,10 @@ var book =
 				_t.page = np;
 			}
 		}
+		if(_t.page == np)
+		{
+			location.hash = "page" + _t.page;
+		}
 		/*if(_t.page != np)
 			alert('fail: ' + lp + ' ' + rp + ' ' + np);*/
 	},
@@ -428,6 +443,12 @@ var book =
 		var _t = this;
 		_t.preloader_current_frame = (_t.preloader_current_frame+1)%
 										_t.preloader_frame_count;
+		
+		var np = _t.getPageNumberFromLocationHash();
+		if(np != _t.page)
+		{
+			_t.goToPage(np);
+		}
 		
 		_t.updateNavButtons();
 		if(_t.show_page_number)

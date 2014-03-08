@@ -118,6 +118,7 @@ a.abc_letter
 
 a.start_letter
 {
+	overflow: hidden;
 	margin-top: 20px;
 	cursor: default;
 	display: block;
@@ -132,5 +133,20 @@ a.start_letter
 }
 a.start_letter:hover
 {
-	color: #000000;
+	color: #777777;
+}
+
+
+.glossary a.start_letter span
+{
+	overflow: hidden;
+	font-size: 18px;
+	float: right;
+	margin-top: -4px;
+	margin-bottom: -8px;
+}
+
+.glossary a.start_letter:hover span
+{
+	text-decoration: underline;
 }
