@@ -20,7 +20,8 @@ var book =
 	
 	page_width: 400,
 	page_height: 580,
-	canvas_padding: 35,
+	canvas_padding_top: 20,
+	canvas_padding_bottom: 40,
 		
 	progress: 1,
 
@@ -96,11 +97,12 @@ var book =
 		var canvas = document.createElement("canvas");				
 		_t.context = canvas.getContext("2d");
 		_t.canvas_width = 2 * _t.page_width;
-		_t.canvas_height = _t.page_height + 2 * _t.canvas_padding;		
+		_t.canvas_height = _t.page_height +
+							(_t.canvas_padding_top+_t.canvas_padding_bottom);		
 		canvas.width = _t.canvas_width;
 		canvas.height = _t.canvas_height;
 		canvas.style.left = "0px";
-		canvas.style.top = (-_t.canvas_padding)+"px";
+		canvas.style.top = (-_t.canvas_padding_top)+"px";
 		book.appendChild(canvas);
 		
 		/* navigation */
@@ -441,13 +443,13 @@ var book =
 				co.drawImage(_t.pages[_t.bg_page],
 							_t.image_left + (_t.book_width-2*_t.page_width)/2,
 							_t.image_top + (_t.book_height-_t.page_height)/2
-								+ _t.canvas_padding);
+								+ _t.canvas_padding_top);
 			else
 				_t.drawPreloader(_t.image_left +
 									(_t.book_width-2*_t.page_width)/2,
 								(_t.page_height-_t.preloader_frame_height)/2 + 
 									(_t.book_height-_t.page_height)/2
-										+ _t.canvas_padding);
+										+ _t.canvas_padding_top);
 		}								
 		if(_t.bg_page+1 < _t.pages_count)
 		{
@@ -455,14 +457,14 @@ var book =
 				co.drawImage(_t.pages[_t.bg_page+1],
 						_t.image_left + (_t.book_width)/2,
 						_t.image_top + (_t.book_height-_t.page_height)/2
-							+ _t.canvas_padding);
+							+ _t.canvas_padding_top);
 			else
 				_t.drawPreloader(_t.image_width + _t.image_left
 									+ (_t.book_width)/2 -
 									_t.preloader_frame_width,
 								(_t.page_height-_t.preloader_frame_height)/2 + 
 									(_t.book_height-_t.page_height)/2
-										+ _t.canvas_padding);
+										+ _t.canvas_padding_top);
 		}
 		
 		for(var i = 0; i < _t.pages_count; i++)
@@ -551,8 +553,8 @@ var book =
 		var co = _t.context;
 		
 		co.save();
-		co.translate((_t.book_width/2),
-						_t.canvas_padding + (_t.book_height-_t.page_height)/2);	
+		co.translate((_t.book_width/2),	_t.canvas_padding_top +
+									(_t.book_height-_t.page_height)/2);	
 		
 		var strength = 1 - Math.abs(progress);
 		strength = Math.round(strength*1000) / 1000;
