@@ -94,8 +94,7 @@
 	top: 50%;*/
 	padding-bottom: 100px;
 	border-top: solid 5px #999999;
-	background:#ff00ff;
-	background: no-repeat url(../design_images/book_bg.png);
+	background: #ffffff no-repeat url(../design_images/book_bg.png);
 }
 
 .head h3
@@ -117,6 +116,7 @@
 	border-top: solid 5px #999999;
 	height: 100px;
 	text-align: center;
+	background: #aaaaaa;
 }
 
 button
