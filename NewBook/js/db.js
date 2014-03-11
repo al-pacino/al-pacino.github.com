@@ -1,14 +1,24 @@
 var books =
 [
 	{
+		"title": "Список растений, собранных близ города Ельца",
+		"path": "images/elc/",
+		"pages_count": 61
+	},
+	{
 		"title": "Versuh",
 		"path": "images/versuh/",
 		"pages_count": 178
 	},
 	{
-		"title": "Список растений, собранных близ города Ельца",
-		"path": "images/elc/",
-		"pages_count": 61
+		"title": "Конспект сосудистых растений",
+		"path": "images/sosudi/",
+		"pages_count": 12
+	},
+	{
+		"title": "PLANTAE BAKUENSES BRUHNSII",
+		"path": "images/plantae/",
+		"pages_count": 94
 	}
 ];
 
