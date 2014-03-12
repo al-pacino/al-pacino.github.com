@@ -44,6 +44,7 @@ body
 .glossary span
 {
 	padding: 3px;
+	cursor: default;
 }
 
 button, a.button

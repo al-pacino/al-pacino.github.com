@@ -8,3 +8,12 @@ img
 	display: block;
 	border-top: solid 5px #999999;
 }
+
+p
+{
+	display: block;
+	border-top: solid 3px #999999;
+	padding: 15px;
+	background: #cccccc;
+	font-size: 18px;
+}
