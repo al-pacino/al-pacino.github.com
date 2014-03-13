@@ -58,7 +58,6 @@ var book =
 		_t.flips = new Array(_t.pages_count);
 		for(var i = 0; i < _t.pages_count; i++)
 		{
-			_t.loadImage(i);
 			_t.flips[i] =
 			{
 				progress: 0,
@@ -67,8 +66,8 @@ var book =
 				dragging: false,
 				loaded: false
 			};
-			
 		}
+		_t.preloadImage(_t.page);
 		
 		setInterval(function(){_t.render();}, 30);
 		document.addEventListener("mousemove",
@@ -78,12 +77,20 @@ var book =
 		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
 		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
 		document.addEventListener("mouseup", function(e){_t.mup(e);}, false);
-		document.addEventListener("keydown", function(e){
-			if(e.keyCode == 39)
-				_t.change(2);
-			else if(e.keyCode == 37)
-				_t.change(-2);
-		}, false);
+		document.addEventListener("keydown", function(e)
+			{
+				var dragging = false;
+				for(var i = 0; i < _t.pages_count && !dragging; i++)
+					dragging = _t.flips[i].dragging;
+
+				if(dragging)
+					return;
+
+				if(e.keyCode == 39)
+					_t.change(2);
+				else if(e.keyCode == 37)
+					_t.change(-2);
+			}, false);
 	},
 	getPageNumberFromLocationHash: function()
 	{
@@ -275,6 +282,34 @@ var book =
 		showPageNumber = true;
 		_t.input_text.blur();
 	},
+	loadImage: function(pagen)
+	{
+		var _t = this;
+		
+		if(_t.pages[pagen])
+			return _t.pages[pagen];
+		
+		_t.pages[pagen] = document.createElement("img");
+		_t.pages[pagen].onload = function(k)
+			{
+				return function()
+					{
+						//setTimeout(function(){
+						_t.flips[k].loaded = true;
+						//}, 1000);
+					};
+			}(pagen);
+		_t.pages[pagen].src = _t.pages_path_prefix + (pagen+1)
+									+ _t.pages_path_suffix;
+	},
+	preloadImage: function(p)
+	{
+		var _t = this;
+		for(var j = Math.max(p-6, 0); j < Math.min(_t.pages_count, p+8); j++)
+		{
+			_t.loadImage(j);
+		}
+	},
 	goToPage: function(np)
 	{
 		var _t = this;
@@ -286,7 +321,9 @@ var book =
 			return;
 		if(np == _t.page)
 			return;
-					
+
+		_t.preloadImage(np);
+
 		var lp, rp;
 		for(lp = 0; lp < _t.pages_count; lp++)
 			if(_t.flips[lp].running)
@@ -405,19 +442,6 @@ var book =
 		}
 		/*if(_t.page != np)
 			alert('fail: ' + lp + ' ' + rp + ' ' + np);*/
-	},
-	loadImage: function(pagen)
-	{
-		var _t = this;
-		
-		if(_t.pages[pagen])
-			return _t.pages[pagen];
-		
-		_t.pages[pagen] = document.createElement("img");
-		_t.pages[pagen].onload = new Function("\
-				book.flips["+pagen+"].loaded = true;");
-		_t.pages[pagen].src = _t.pages_path_prefix + (pagen+1)
-									+ _t.pages_path_suffix;
 	},
 	drawPreloader: function(x, y)
 	{
@@ -717,3 +741,4 @@ var book =
 		co.restore();
 	}
 }
+
