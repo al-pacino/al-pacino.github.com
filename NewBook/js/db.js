@@ -1,24 +1,34 @@
 var books =
 [
-	{
+	{ // 0
 		"title": "Список растений, собранных близ города Ельца",
 		"path": "images/elc/",
 		"pages_count": 61
 	},
-	{
+	{ // 1
 		"title": "Versuh",
 		"path": "images/versuh/",
 		"pages_count": 178
 	},
-	{
+	{ // 2
 		"title": "Конспект сосудистых растений",
 		"path": "images/sosudi/",
 		"pages_count": 12
 	},
-	{
+	{ // 3
 		"title": "PLANTAE BAKUENSES BRUHNSII",
 		"path": "images/plantae/",
 		"pages_count": 94
+	},
+	{ // 4
+		"title": "РАСТЕНIЯ СЪМЯННЫЯ",
+		"path": "images/rast/",
+		"pages_count": 30
+	},
+	{ // 5
+		"title": "SOCIETE IMPERIALE",
+		"path": "images/societe/",
+		"pages_count": 15
 	}
 ];
 
