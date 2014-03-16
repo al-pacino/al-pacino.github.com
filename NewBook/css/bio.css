@@ -9,6 +9,18 @@ img
 	border-top: solid 5px #999999;
 }
 
+
+.middle
+{
+    border-top: solid 5px #999999;
+}
+
+.middle img
+{
+	border: none;
+    margin: 0 auto;
+}
+
 p
 {
 	display: block;

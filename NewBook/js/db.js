@@ -23,7 +23,7 @@ var books =
 	{ // 4
 		"title": "РАСТЕНIЯ СЪМЯННЫЯ",
 		"path": "images/rast/",
-		"pages_count": 30
+		"pages_count": 31
 	},
 	{ // 5
 		"title": "SOCIETE IMPERIALE",
