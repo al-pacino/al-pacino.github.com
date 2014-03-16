@@ -131,7 +131,7 @@ var glossary =
             }
             else
             {
-                a.href = "#" + Math.ceil(Math.random()*1000);
+                a.href = "#" + Math.ceil(Math.random()*100000);
                 a.onclick = function(e)
                 {
                     if(_t.currentTerm)
