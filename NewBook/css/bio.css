@@ -23,6 +23,13 @@ img
 
 p
 {
+    color: #000000;
+    padding: 5px 5px;
+    font-size: 20px;
+}
+
+.sub
+{
 	display: block;
 	border-top: solid 3px #999999;
 	padding: 15px;
