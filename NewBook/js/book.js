@@ -176,11 +176,13 @@ var book =
                             _t.book_width / 2 ) + "px";
         _t.dzr.style.top = Math.floor(_t.image_top +
                             (_t.book_height - _t.page_height)/2) + "px";
-                            
+         
         _t.dzr.appendChild(_t.createJqzoom(-400));
         
         var zoom = ge("zoom");
-        zoom.appendChild(_t.dzl);        
+        _t.dzr.style.display = "none";
+        _t.dzl.style.display = "none";
+        zoom.appendChild(_t.dzl);
         zoom.appendChild(_t.dzr);
 		
 		/* navigation */

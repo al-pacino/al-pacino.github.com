@@ -1,5 +1,4 @@
 /*!
-/*!
  * jQzoom Evolution Library v2.2  - Javascript Image magnifier
  * http://www.mind-projects.it
  *
