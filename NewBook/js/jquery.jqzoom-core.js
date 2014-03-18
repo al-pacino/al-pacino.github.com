@@ -1,4 +1,5 @@
 /*!
+/*!
  * jQzoom Evolution Library v2.2  - Javascript Image magnifier
  * http://www.mind-projects.it
  *
@@ -217,6 +218,23 @@
                     break;
                 }
                 el.zoom_active = false;
+            },
+            myswap: function (options) {
+                el.largeimageloading = false;
+                el.largeimageloaded = false;
+                if (options.smallimage && options.largeimage) {
+                    var smallimage = options.smallimage;
+                    var largeimage = options.largeimage;
+                    $(el).attr('href', largeimage);
+                    img.attr('src', smallimage);
+                    lens.hide();
+                    stage.hide();
+                    obj.load();
+                } else {
+                    alert('ERROR :: Missing parameter for largeimage or smallimage.');
+                    throw 'ERROR :: Missing parameter for largeimage or smallimage.';
+                }
+                return false;
             },
             swapimage: function (link) {
                 el.largeimageloading = false;
@@ -494,19 +512,19 @@
                     //positioning
                     switch (settings.position) {
                     case "left":
-                        this.node.leftpos = (smallimage.pos.l - smallimage.bleft - Math.abs(settings.xOffset) - settings.zoomWidth > 0) ? (0 - settings.zoomWidth - Math.abs(settings.xOffset)) : (smallimage.ow + Math.abs(settings.xOffset));
+                        this.node.leftpos = (smallimage.pos.l - smallimage.bleft - /*Math.abs(*/settings.xOffset/*)*/ - settings.zoomWidth > 0) ? (0 - settings.zoomWidth - /*Math.abs(*/settings.xOffset/*)*/) : (smallimage.ow + /*Math.abs(*/settings.xOffset/*)*/);
                         this.node.toppos = Math.abs(settings.yOffset);
                         break;
                     case "top":
-                        this.node.leftpos = Math.abs(settings.xOffset);
+                        this.node.leftpos = /*Math.abs(*/settings.xOffset/*)*/;
                         this.node.toppos = (smallimage.pos.t - smallimage.btop - Math.abs(settings.yOffset) - settings.zoomHeight > 0) ? (0 - settings.zoomHeight - Math.abs(settings.yOffset)) : (smallimage.oh + Math.abs(settings.yOffset));
                         break;
                     case "bottom":
-                        this.node.leftpos = Math.abs(settings.xOffset);
+                        this.node.leftpos = /*Math.abs(*/settings.xOffset/*)*/;
                         this.node.toppos = (smallimage.pos.t - smallimage.btop + smallimage.oh + Math.abs(settings.yOffset) + settings.zoomHeight < screen.height) ? (smallimage.oh + Math.abs(settings.yOffset)) : (0 - settings.zoomHeight - Math.abs(settings.yOffset));
                         break;
                     default:
-                        this.node.leftpos = (smallimage.rightlimit + Math.abs(settings.xOffset) + settings.zoomWidth < screen.width) ? (smallimage.ow + Math.abs(settings.xOffset)) : (0 - settings.zoomWidth - Math.abs(settings.xOffset));
+                        this.node.leftpos = (smallimage.rightlimit + /*Math.abs(*/settings.xOffset/*)*/ + settings.zoomWidth < screen.width) ? (smallimage.ow + /*Math.abs(*/settings.xOffset/*)*/) : (0 - settings.zoomWidth - /*Math.abs(*/settings.xOffset/*)*/);
                         this.node.toppos = Math.abs(settings.yOffset);
                         break;
                     }

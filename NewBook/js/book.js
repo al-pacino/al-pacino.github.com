@@ -3,7 +3,7 @@ var book =
 	pages_count: 178,
 	page: 1, /* from 1 to pages_count */
 	pages_path_prefix: "images/versuh/",
-	pages_path_suffix: ".png",
+	pages_path_suffix: "_small.jpg",
 	
 	preloder_image_path: "design_images/preloader.png",
 	preloader_frame_width: 100,
@@ -68,6 +68,20 @@ var book =
 			};
 		}
 		_t.preloadImage(_t.page);
+        if(_t.page > 0)
+        {
+            $(_t.dzl.firstChild).data("jqzoom").myswap({
+                smallimage: _t.pages_path_prefix + (_t.page+1) + '_small.jpg',
+                largeimage: _t.pages_path_prefix + (_t.page+1) + '_big.jpg'
+            });
+        }
+        if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
+        {
+            $(_t.dzr.firstChild).data("jqzoom").myswap({
+                smallimage: _t.pages_path_prefix + (_t.page+2) + '_small.jpg',
+                largeimage: _t.pages_path_prefix + (_t.page+2) + '_big.jpg'
+            });
+        }
 		
 		setInterval(function(){_t.render();}, 30);
 		document.addEventListener("mousemove",
@@ -101,6 +115,27 @@ var book =
 		else
 			return _t.page;
 	},
+    createJqzoom: function(xofs)
+    {
+        var _t = this;
+        var aaa = document.createElement('a');
+        var imga = document.createElement('img');
+        imga.width = _t.image_width;
+        imga.height = _t.image_height;
+        aaa.appendChild(imga);
+        $(aaa).jqzoom({
+							zoomType: 'reverse',
+							lens: true,
+							preloadImages: false,
+							alwaysOn: false,
+                            zoomWidth: _t.image_width-10,
+                            zoomHeight: _t.image_height-10,
+                            title: false,
+                            imageOpacity: 0.7,
+                            xOffset: xofs,
+						});
+        return aaa;
+    },
 	initGui: function()
 	{
 		var _t = this;
@@ -122,6 +157,31 @@ var book =
 		canvas.style.left = "0px";
 		canvas.style.top = (-_t.canvas_padding_top)+"px";
 		book.appendChild(canvas);
+        
+        /* zoom */
+        _t.dzl = document.createElement("div");
+        _t.dzl.style.width = _t.image_width + "px";
+        _t.dzl.style.height = _t.image_height + "px";
+        _t.dzl.style.left = Math.floor(_t.image_left +
+                            _t.book_width / 2 - _t.page_width) + "px";
+        _t.dzl.style.top = Math.floor(_t.image_top +
+                            (_t.book_height - _t.page_height)/2) + "px";
+                            
+        _t.dzl.appendChild(_t.createJqzoom(400));
+        
+        _t.dzr = document.createElement("div");
+        _t.dzr.style.width = _t.image_width + "px";
+        _t.dzr.style.height = _t.image_height + "px";
+        _t.dzr.style.left = Math.floor(_t.image_left +
+                            _t.book_width / 2 ) + "px";
+        _t.dzr.style.top = Math.floor(_t.image_top +
+                            (_t.book_height - _t.page_height)/2) + "px";
+                            
+        _t.dzr.appendChild(_t.createJqzoom(-400));
+        
+        var zoom = ge("zoom");
+        zoom.appendChild(_t.dzl);        
+        zoom.appendChild(_t.dzr);
 		
 		/* navigation */
 		var nav = ge("nav");
@@ -439,6 +499,20 @@ var book =
 		if(_t.page == np)
 		{
 			location.hash = "page" + _t.page;
+            if(_t.page > 0)
+            {
+                $(_t.dzl.firstChild).data("jqzoom").myswap({
+                    smallimage: _t.pages_path_prefix + (_t.page) + '_small.jpg',
+                    largeimage: _t.pages_path_prefix + (_t.page) + '_big.jpg'
+                });
+            }
+            if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
+            {
+                $(_t.dzr.firstChild).data("jqzoom").myswap({
+                    smallimage: _t.pages_path_prefix + (_t.page+1) + '_small.jpg',
+                    largeimage: _t.pages_path_prefix + (_t.page+1) + '_big.jpg'
+                });
+            }
 		}
 		/*if(_t.page != np)
 			alert('fail: ' + lp + ' ' + rp + ' ' + np);*/
@@ -468,6 +542,9 @@ var book =
 		_t.preloader_current_frame = (_t.preloader_current_frame+1)%
 										_t.preloader_frame_count;
 		
+        _t.dzr.style.display = "none";
+        _t.dzl.style.display = "none";
+        
 		var np = _t.getPageNumberFromLocationHash();
 		if(np != _t.page)
 		{
@@ -511,11 +588,12 @@ var book =
 									(_t.book_height-_t.page_height)/2
 										+ _t.canvas_padding_top);
 		}
-		
+		var is_animation = false;
 		for(var i = 0; i < _t.pages_count; i++)
 		{
 			if(_t.flips[i].dragging)
 			{
+                is_animation = true;
 				_t.flips[i].target = Math.max(
 						Math.min(_t.mouse.x/_t.page_width, 1), -1);
 				_t.flips[i].progress += (1.3*_t.flips[i].target - 
@@ -525,6 +603,7 @@ var book =
 			}
 			if(_t.flips[i].running)
 			{
+                is_animation = true;
 				_t.flips[i].progress += (1.3*_t.flips[i].target - 
 											_t.flips[i].progress)*0.1;
 				_t.drawFlip(i, _t.flips[i].progress);
@@ -538,6 +617,19 @@ var book =
 				}
 			}
 		}
+        if(!is_animation)
+        {
+            if(_t.mouse.x < 0)
+            {
+                if(_t.page > 0)
+                    _t.dzl.style.display = "block";
+            }
+            else
+            {
+                if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
+                    _t.dzr.style.display = "block";
+            }
+        }
 	},
 	mmove: function(e)
 	{
