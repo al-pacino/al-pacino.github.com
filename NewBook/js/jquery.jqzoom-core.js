@@ -220,6 +220,7 @@
                 el.zoom_active = false;
             },
             myswap: function (options) {
+                //alert(options.smallimage + " " + options.largeimage);
                 el.largeimageloading = false;
                 el.largeimageloaded = false;
                 if (options.smallimage && options.largeimage) {

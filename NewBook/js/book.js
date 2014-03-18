@@ -71,15 +71,15 @@ var book =
         if(_t.page > 0)
         {
             $(_t.dzl.firstChild).data("jqzoom").myswap({
-                smallimage: _t.pages_path_prefix + (_t.page+1) + '_small.jpg',
-                largeimage: _t.pages_path_prefix + (_t.page+1) + '_big.jpg'
+                smallimage: _t.pages_path_prefix + (_t.page) + '_small.jpg',
+                largeimage: _t.pages_path_prefix + (_t.page) + '_big.jpg'
             });
         }
         if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
         {
             $(_t.dzr.firstChild).data("jqzoom").myswap({
-                smallimage: _t.pages_path_prefix + (_t.page+2) + '_small.jpg',
-                largeimage: _t.pages_path_prefix + (_t.page+2) + '_big.jpg'
+                smallimage: _t.pages_path_prefix + (_t.page+1) + '_small.jpg',
+                largeimage: _t.pages_path_prefix + (_t.page+1) + '_big.jpg'
             });
         }
 		
@@ -111,7 +111,7 @@ var book =
 		var _t = this;
 		var re1 = /#page([\d]+)/i;
 		if(re1.test(location.hash))
-			return re1.exec(location.hash)[1];
+			return parseInt(re1.exec(location.hash)[1]);
 		else
 			return _t.page;
 	},
