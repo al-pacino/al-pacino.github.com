@@ -3,9 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Book</title>
+
 		<link rel="stylesheet" href="css/common.css" />
 		<link rel="stylesheet" href="css/stub.css" />
 		<link rel="stylesheet" href="css/book.css" />
+		<link rel="stylesheet" href="css/jquery.jqzoom.css">
+
+		<script src="js/jquery-1.5.js"></script>
+		<script src="js/jquery.jqzoom-core.js"></script>
 		<script src="js/common.js"></script>
 		<script src="js/db.js"></script>
 		<script src="js/book.js"></script>
@@ -14,9 +19,18 @@
 		<div class="wrap" id="wrapper">
 			<div class="head"><h1>Русский Ботаник Леонид Федорович Грунер (1839 &ndash; ок 1917)</h1><h3 id="title"></h3></div>
 			<div class="nav"><a href="index.html" class="button red">На главную</a>&nbsp;&nbsp;&nbsp;<a href="glossary.html" class="button red">Глоссарий</a></div>
+			<div style="position: absolute; margin-left: 35px; margin-top: 65px;">
+				<a href="images/elc/4_big.png" class="jqzoom" rel='gal1'>
+					<img src="images/elc/4.png" /> 
+				</a>
+			</div>
+			<div style="position: absolute; margin-left: 435px; margin-top: 65px;">
+				<a href="images/elc/5_big.png" class="jqzoom" rel='gal1'>
+					<img src="images/elc/5.png" /> 
+				</a>
+			</div>
 			<div id="book" class="book"></div>
 			<div id="nav" class="navigation"></div>
-			
 			<div class="nav"><a href="index.html" class="button red">На главную</a>&nbsp;&nbsp;&nbsp;<a href="glossary.html" class="button red">Глоссарий</a>&nbsp;&nbsp;&nbsp;<a href="#body" class="button red">Наверх</a></div>
 		</div>
 		<div class="copyright">University Edition v 1.0</div>
@@ -68,6 +82,15 @@
 					ge("notfound").style.display = "block";
 				}
 			}
+			$(document).ready(function() {
+					$('.jqzoom').jqzoom({
+							zoomType: 'reverse',
+							lens:true,
+							preloadImages: false,
+							alwaysOn:false
+						});
+				});
 		</script>
 	</body>
 </html>
+
