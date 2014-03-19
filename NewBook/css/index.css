@@ -171,3 +171,23 @@ div.additional.opened
 {
 	display: block;
 }
+
+.button > div
+{
+    position: absolute;
+    width: 220px;
+    border: solid 1px #880015;
+    background: #efe4b0;
+    font-size: 14px;
+    line-height: 14px;
+    height: 42px;
+    padding: 3px;
+    margin-left: -20px;
+    text-align: left;
+    display: none;
+}
+
+.button:hover > div
+{
+    display: block;
+}
