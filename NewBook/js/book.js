@@ -396,7 +396,7 @@
 	},
 	goToPage: function(np)
 	{
-		var _t = this;
+        var _t = this;
 		if(np < 0)
 			return;
 		if(np % 2)
@@ -405,7 +405,9 @@
 			return;
 		if(np == _t.page)
 			return;
-
+            
+        _t.dzr.style.display = "none";
+        _t.dzl.style.display = "none";
 		_t.preloadImage(np);
 
 		var lp, rp;
