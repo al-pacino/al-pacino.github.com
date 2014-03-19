@@ -1,4 +1,4 @@
-var book =
+﻿var book =
 {
 	pages_count: 178,
 	page: 1, /* from 1 to pages_count */
@@ -43,6 +43,8 @@ var book =
 		document.title = b.title;
 		
 		_t.initGui();
+        _t.zoom_active = true;
+        _t.toggleZoom();
 		
 		_t.preloader = document.createElement("img");
 		_t.preloader.src = _t.preloder_image_path;
@@ -136,6 +138,20 @@ var book =
 						});
         return aaa;
     },
+    toggleZoom: function()
+    {
+        var _t = this;
+        if( _t.zoom_active )
+        {
+            _t.zoom_active = false;
+            removeClass(_t.buttons.zoom, "active");
+        }
+        else
+        {
+            _t.zoom_active = true;
+            addClass(_t.buttons.zoom, "active");
+        }
+    },
 	initGui: function()
 	{
 		var _t = this;
@@ -190,9 +206,14 @@ var book =
 		nav.style.width = _t.book_width+"px";
 		
 		_t.buttons = {};
-		_t.buttons.begin = _t.createButton(" begin ", function(e){
+        _t.buttons.zoom = _t.createButton(" Увеличение ", function(e){
+                _t.toggleZoom();
+            });
+        _t.buttons.zoom.style.cursor = "pointer";
+        
+		_t.buttons.begin = _t.createButton(" Начало ", function(e){
 			_t.goToPage(0); });
-		_t.buttons.end = _t.createButton(" end ", function(e){
+		_t.buttons.end = _t.createButton(" Конец ", function(e){
 			_t.goToPage(_t.pages_count-1); });
 		
 		_t.buttons.m2 = _t.createButton(" &lt; ", function(e){
@@ -232,6 +253,7 @@ var book =
 		var span = document.createElement("span");
 		span.innerHTML = "/ " + _t.pages_count;
 		
+		nav.appendChild(_t.buttons.zoom);
 		nav.appendChild(_t.buttons.begin);
 		if(_t.buttons.m100) nav.appendChild(_t.buttons.m100);
 		if(_t.buttons.m20) nav.appendChild(_t.buttons.m20);
@@ -619,7 +641,7 @@ var book =
 				}
 			}
 		}
-        if(!is_animation)
+        if(_t.zoom_active && !is_animation)
         {
             if(_t.mouse.x < 0)
             {
@@ -643,6 +665,10 @@ var book =
 	mdown: function(e)
 	{
 		var _t = this;
+        
+        _t.dzr.style.display = "none";
+        _t.dzl.style.display = "none";
+        
 		if(Math.abs(_t.mouse.x) > _t.page_width ||
 			_t.mouse.y < 0 || _t.mouse.y > _t.book_height)
 			return;
