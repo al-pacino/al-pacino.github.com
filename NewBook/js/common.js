@@ -38,6 +38,29 @@ function removeClass(obj, name)
 	}
 }
 
+function getXY(obj, forFixed) {
+  obj = ge(obj);
+  if (!obj) return [0,0];
+
+  var left = 0, top = 0, pos, lastLeft;
+  if (obj.offsetParent) {
+    do {
+      left += (lastLeft = obj.offsetLeft);
+      top += obj.offsetTop;
+      pos = obj.style.position;
+      if (pos == 'fixed' || pos == 'absolute' || (pos == 'relative')) {
+        left -= obj.scrollLeft;
+        top -= obj.scrollTop;
+        if (pos == 'fixed' && !forFixed) {
+          left += ((obj.offsetParent || {}).scrollLeft || bodyNode.scrollLeft || htmlNode.scrollLeft);
+          top += ((obj.offsetParent || {}).scrollTop || bodyNode.scrollTop || htmlNode.scrollTop);
+        }
+      }
+    } while (obj = obj.offsetParent);
+  }
+  return [left,top];
+}
+
 function trim(text)
 {
 	return (text || '').replace(/^\s+|\s+$/g, '');

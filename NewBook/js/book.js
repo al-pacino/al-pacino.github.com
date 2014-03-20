@@ -660,9 +660,9 @@
 	mmove: function(e)
 	{
 		var _t = this;
-		var book = ge("book");
-		_t.mouse.x = e.clientX - book.offsetLeft - (_t.book_width / 2);
-		_t.mouse.y = e.clientY - book.offsetTop;
+        var bookxy = getXY("book");
+		_t.mouse.x = e.pageX - bookxy[0] - (_t.book_width / 2);
+		_t.mouse.y = e.pageY - bookxy[1];
 	},
 	mdown: function(e)
 	{
