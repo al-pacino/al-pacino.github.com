@@ -6,7 +6,7 @@ var books =
         "pages_count": 61
     },
     { // 1
-        "title": "Versuh",
+        "title": "Versuh Einer",
         "path": "images/versuh/",
         "pages_count": 178
     },
@@ -18,7 +18,7 @@ var books =
     { // 3
         "title": "PLANTAE BAKUENSES BRUHNSII",
         "path": "images/plantae/",
-        "pages_count": 94
+        "pages_count": 92
     },
     { // 4
         "title": "РАСТЕНIЯ СЪМЯННЫЯ",
