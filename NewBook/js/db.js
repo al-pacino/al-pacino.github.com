@@ -6,7 +6,7 @@ var books =
         "pages_count": 61
     },
     { // 1
-        "title": "Versuh Einer",
+        "title": "Versuh",
         "path": "images/versuh/",
         "pages_count": 178
     },
@@ -18,7 +18,7 @@ var books =
     { // 3
         "title": "PLANTAE BAKUENSES BRUHNSII",
         "path": "images/plantae/",
-        "pages_count": 92
+        "pages_count": 94
     },
     { // 4
         "title": "РАСТЕНIЯ СЪМЯННЫЯ",
@@ -29,7 +29,13 @@ var books =
         "title": "SOCIETE IMPERIALE",
         "path": "images/societe/",
         "pages_count": 15
+    },
+    { // 6
+        "title": "Бюллетень московского общества испытателей природы (1868)",
+        "path": "images/bmoip1868/",
+        "pages_count": 4
     }
+    
 ];
 
 var rus_glossary =

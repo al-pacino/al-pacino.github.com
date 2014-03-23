@@ -40,6 +40,11 @@ body
 	padding-bottom: 5px;
 }
 
+.portrait img
+{
+    display: block;
+}
+
 .big_button
 {
 	display: block;

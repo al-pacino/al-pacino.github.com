@@ -36,3 +36,10 @@ p
 	background: #cccccc;
 	font-size: 18px;
 }
+
+.sub ol
+{
+    margin-left: 100px;
+    font-size: 18px;
+    /*font-weight: bold;*/
+}

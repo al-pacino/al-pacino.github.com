@@ -396,7 +396,7 @@
 	},
 	goToPage: function(np)
 	{
-        var _t = this;
+		var _t = this;
 		if(np < 0)
 			return;
 		if(np % 2)
@@ -405,9 +405,7 @@
 			return;
 		if(np == _t.page)
 			return;
-            
-        _t.dzr.style.display = "none";
-        _t.dzl.style.display = "none";
+
 		_t.preloadImage(np);
 
 		var lp, rp;
@@ -660,9 +658,9 @@
 	mmove: function(e)
 	{
 		var _t = this;
-        var bookxy = getXY("book");
-		_t.mouse.x = e.pageX - bookxy[0] - (_t.book_width / 2);
-		_t.mouse.y = e.pageY - bookxy[1];
+		var book = ge("book");
+		_t.mouse.x = e.clientX - book.offsetLeft - (_t.book_width / 2);
+		_t.mouse.y = e.clientY - book.offsetTop;
 	},
 	mdown: function(e)
 	{
