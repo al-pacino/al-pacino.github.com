@@ -6,14 +6,14 @@ var books =
         "pages_count": 61
     },
     { // 1
-        "title": "Versuh",
+        "title": "Флора Алентакен",
         "path": "images/versuh/",
         "pages_count": 178
     },
     { // 2
         "title": "Конспект сосудистых растений",
         "path": "images/sosudi/",
-        "pages_count": 12
+        "pages_count": 120
     },
     { // 3
         "title": "PLANTAE BAKUENSES BRUHNSII",
@@ -21,9 +21,9 @@ var books =
         "pages_count": 94
     },
     { // 4
-        "title": "РАСТЕНIЯ СЪМЯННЫЯ",
-        "path": "images/rast/",
-        "pages_count": 31
+        "title": "Характеристика почв",
+        "path": "images/harpoch/",
+        "pages_count": 66
     },
     { // 5
         "title": "SOCIETE IMPERIALE",
@@ -34,8 +34,12 @@ var books =
         "title": "Бюллетень московского общества испытателей природы (1868)",
         "path": "images/bmoip1868/",
         "pages_count": 4
+    },
+    { // 7
+        "title": "Zur Kentniss der Vegetationsverhaltnisse von Palna",
+        "path": "images/zur_kentniss/",
+        "pages_count": 16
     }
-    
 ];
 
 var rus_glossary =
