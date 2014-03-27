@@ -152,6 +152,22 @@
             addClass(_t.buttons.zoom, "active");
         }
     },
+    hideZoom: function()
+    {
+        var _t = this;
+        _t.dzr.style.display = "none";
+        _t.dzl.style.display = "none";
+    },
+    showDzl: function()
+    {
+        var _t = this;
+        _t.dzl.style.display = "block";
+    },
+    showDzr: function()
+    {
+        var _t = this;
+        _t.dzr.style.display = "block";
+    },
 	initGui: function()
 	{
 		var _t = this;
@@ -196,8 +212,7 @@
         _t.dzr.appendChild(_t.createJqzoom(-400));
         
         var zoom = ge("zoom");
-        _t.dzr.style.display = "none";
-        _t.dzl.style.display = "none";
+        _t.hideZoom();
         zoom.appendChild(_t.dzl);
         zoom.appendChild(_t.dzr);
 		
@@ -406,6 +421,8 @@
 		if(np == _t.page)
 			return;
 
+        _t.hideZoom();
+            
 		_t.preloadImage(np);
 
 		var lp, rp;
@@ -565,9 +582,8 @@
 		var _t = this;
 		_t.preloader_current_frame = (_t.preloader_current_frame+1)%
 										_t.preloader_frame_count;
-		
-        _t.dzr.style.display = "none";
-        _t.dzl.style.display = "none";
+        
+        _t.hideZoom();
         
 		var np = _t.getPageNumberFromLocationHash();
 		if(np != _t.page)
@@ -646,12 +662,12 @@
             if(_t.mouse.x < 0)
             {
                 if(_t.page > 0)
-                    _t.dzl.style.display = "block";
+                    _t.showDzl();
             }
             else
             {
                 if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
-                    _t.dzr.style.display = "block";
+                    _t.showDzr();
             }
         }
 	},
@@ -666,8 +682,7 @@
 	{
 		var _t = this;
         
-        _t.dzr.style.display = "none";
-        _t.dzl.style.display = "none";
+        _t.hideZoom();
         
 		if(Math.abs(_t.mouse.x) > _t.page_width ||
 			_t.mouse.y < 0 || _t.mouse.y > _t.book_height)
