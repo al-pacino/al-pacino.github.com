@@ -39,6 +39,11 @@ var books =
         "title": "Zur Kentniss der Vegetationsverhaltnisse von Palna",
         "path": "images/zur_kentniss/",
         "pages_count": 16
+    },
+    { // 8
+        "title": "Список растений собранных Л.Ф. Грунером",
+        "path": "images/galras/",
+        "pages_count": 23
     }
 ];
 
