@@ -1,0 +1,208 @@
+body
+{
+	overflow-y: scroll;
+}
+
+a
+{
+    cursor: pointer;
+}
+
+.head h1
+{
+	padding-top: 10px;
+	text-align: center;
+	color: #000000;
+	font-size: 24px;
+	padding-bottom: 7px;
+}
+
+.head h3
+{
+	text-align: center;
+	color: #000000;
+	font-size: 32px;
+	padding: 10px 0;
+	border-top: solid 3px #999999;
+	background: #aaaaaa;
+}
+
+.head
+{
+	border-bottom: none;
+}
+
+.glossary
+{
+	border-top: solid 5px #999999;
+	background: #cccccc;
+	padding-bottom: 30px;
+}
+
+.nav
+{
+	background: #cccccc;
+	padding: 15px;
+	border-top: solid 5px #999999;
+}
+
+.glossary span
+{
+	padding: 3px;
+	cursor: default;
+}
+
+button, a.button
+{
+	margin: 0;
+	display: inline-block;
+	text-align: center;
+	border:outset 2px #777777;
+	font-size: 18px;
+	padding: 3px 5px;
+	cursor: pointer;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+button:hover, a.button:hover
+{
+	background: #aaaaaa;
+}
+
+button.red, a.button.red
+{
+	border:outset 2px #770000;
+	background: #990000;
+	color: #ffffff;
+}
+
+a.button.red
+{
+	font-size: 24px;
+}
+
+a.button.red:hover
+{
+	background: #cc0000;
+}
+
+.glossary ol
+{
+	margin-top: 10px;
+}
+.glossary li
+{
+    margin-left: 60px;
+	font-size: 18px;
+	margin-bottom: 0.4em;
+	color: #800000;
+}
+
+.glossary ol div.opened
+{
+	border-top: solid 3px #999999;
+	border-bottom: solid 3px #999999;
+    padding-top: 10px;
+    padding-bottom: 20px;
+	background: #dedede;
+}
+
+.glossary li > div
+{
+    margin-left: -60px;
+    padding-left: 60px;
+}
+.glossary li.opened > div
+{
+    border-top: solid 3px #999999;
+	border-bottom: solid 3px #999999;
+    padding-top: 10px;
+    padding-bottom: 20px;
+	background: #dedede;
+}
+.glossary li > div > div
+{
+    display: none;
+}
+
+.glossary li.opened > div > div
+{
+    display: block;
+    color: #333333;
+    padding-right: 50px;
+    font-size: 16px;
+}
+
+.glossary li a
+{
+	color: #000000;
+	text-decoration: underline;
+	font-size: 18px;
+}
+
+.glossary li a:hover
+{
+	color: #777777;
+	text-decoration: none;
+}
+
+.glossary li a:visited
+{
+	color: #777777;
+}
+
+a.abc_letter
+{
+	margin-right: 5px;
+	font-size: 24px;
+}
+
+a.start_letter
+{
+	overflow: hidden;
+	margin-top: 20px;
+	cursor: default;
+	display: block;
+	text-decoration: none;
+	font-size: 18px;
+	color: #000000;
+	padding: 5px;
+	margin-bottom: 0;
+	background: #ededed;
+	border-bottom: solid 1px #ababab;
+	overflow: auto;
+}
+a.start_letter:hover
+{
+	color: #777777;
+}
+
+.glossary .glbtn
+{
+    float: left;
+}
+
+.vibor
+{
+    display : block;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px;
+    height: 50px;
+}
+
+.glossary a.start_letter span
+{
+	overflow: hidden;
+	font-size: 18px;
+	float: right;
+	margin-top: -4px;
+	margin-bottom: -8px;
+}
+
+.glossary a.start_letter:hover span
+{
+	text-decoration: underline;
+}

@@ -1,0 +1,108 @@
+html, body, ol, ul, h1, h2, h3, div, p, span
+{
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, Sans-Serif;
+}
+
+body
+{
+	background: #333333 url(../design_images/bg.jpg);
+	overflow-y: scroll;
+	padding: 30px 50px;
+	min-width: 850px;
+}
+
+img
+{
+	border-style: none;
+}
+
+.wrap
+{
+	margin: 0 auto;
+	border: solid 5px #999999;
+	background: #aaaaaa;
+	width: 850px;
+}
+
+.head
+{
+	background: #cccccc;
+}
+
+.copyright
+{
+	font-size: 16px;
+	color: #cccccc;
+	text-align: center;
+	margin-top: 25px;
+}
+
+.head h1
+{
+	padding-top: 10px;
+	text-align: center;
+	color: #000000;
+	font-size: 24px;
+	padding-bottom: 7px;
+}
+
+.head h3
+{
+	text-align: center;
+	color: #000000;
+	font-size: 32px;
+	padding: 10px 0;
+	border-top: solid 3px #999999;
+	background: #aaaaaa;
+}
+
+.nav
+{
+	background: #cccccc;
+	padding: 15px;
+	border-top: solid 5px #999999;
+}
+
+.bottom
+{
+	background: #cccccc;
+	padding: 15px;
+}
+
+a.button
+{
+	display: inline-block;
+	text-align: center;
+	border:outset 2px #777777;
+	font-size: 24px;
+	padding: 6px 10px;
+	margin: 0;
+	cursor: pointer;
+	color: #000000;
+	background: #999999;
+	text-decoration: none;
+}
+
+a.button:hover
+{
+	background: #aaaaaa;
+}
+
+a.button.red
+{
+	border:outset 2px #770000;
+	background: #990000;
+	color: #ffffff;
+}
+
+a.button.red
+{
+	font-size: 24px;
+}
+
+a.button.red:hover
+{
+	background: #cc0000;
+}
