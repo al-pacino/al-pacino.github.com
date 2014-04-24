@@ -200,8 +200,7 @@ var glossary =
         _t.activeLetterPair = {"button": e, "letter": c};
         
         _t.show(_t.filter(_t.db.data,
-                {"title": function(e){return e[0].toUpperCase() == c;}})
-                  .sort(_t.compareTitle));
+                {"title": function(e){return e[0].toUpperCase() == c;}}));
     },
     showByYear: function(e, y)
     {
