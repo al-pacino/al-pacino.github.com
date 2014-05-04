@@ -5,7 +5,7 @@ var glossary =
         var _t = this;
         
         _t.db = db;
-        _t.db.data = _t.db.data.sort(_t.compareYear);
+        _t.db.data = _t.db.data.sort(_t.compareTitle);
         _t.gl = ge("glossary");
         _t.currentList = null;
         _t.currentTerm = null;        
@@ -215,8 +215,7 @@ var glossary =
         _t.activeYearPair = {"button": e, "year": y};
         
         var _t = this;
-        _t.show(_t.filter(_t.db.data,
-               {"year": function(e){return e == y;}}).sort(_t.compareTitle));
+        _t.show(_t.filter(_t.db.data, {"year": function(e){return e == y;}}));
     },
     show: function(db)
     {
