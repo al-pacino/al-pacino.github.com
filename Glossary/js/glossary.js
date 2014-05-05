@@ -4,64 +4,91 @@ var glossary =
     {
         var _t = this;
         
-        _t.db = db;
-        _t.db.data = _t.db.data.sort(_t.compareTitle);
+        _t.abc = db.abc;
+        _t.dbTitle = _t.deepsort(db.data, _t.compareTitle);
+        _t.dbYear = _t.flatten(db.data).sort(_t.compareYear);
         _t.gl = ge("glossary");
         _t.currentList = null;
-        _t.currentTerm = null;        
-        
-        var year_btn = document.createElement("button");
-        year_btn.innerHTML = "По<br />&nbsp;Году&nbsp;";
-        addClass(year_btn, "red");
-        addClass(year_btn, "glbtn");
-        var year_div = document.createElement("div");
-        year_div.appendChild(year_btn);
-        
-        _t.gl.appendChild(year_div);
-        
-        var title_btn = document.createElement("button");
-        title_btn.innerHTML = "По<br />Фамилии";
-        addClass(title_btn, "red");
-        addClass(title_btn, "glbtn");
-        var title_div = document.createElement("div");
-        title_div.appendChild(title_btn);
-        _t.gl.appendChild(title_div);
-        
-        title_div.appendChild(_t.createYears(_t.db));
-        year_div.appendChild(_t.createAbc(_t.db));
-        
-        year_div.style.display = "block";
-        title_div.style.display = "none";
-        
-        year_btn.onclick = function(r, e)
-            {
+        _t.activeLetterPair = null;
+        _t.activeYearPair = null;
+
+        var yearDiv, titleDiv;
+        var action = function(f)
+             {
                 return function()
                     {
-                        toggle(r);
-                        toggle(e);
-                        if(_t.active_button)
-                            removeClass(_t.active_button, "red");
-                        addClass(e.firstChild, "red");
-                        _t.active_button = e.firstChild;
-                        _t.showByYear(_t.activeYearPair.button,
-                                      _t.activeYearPair.year);
-                                        
+                        toggle(yearDiv);
+                        toggle(titleDiv);
+                        f();
                     };
-            }(year_div, title_div);
-        title_btn.onclick = function(r, e)
+            };
+
+        var titleDiv = _t.createButton("По<br />&nbsp;Году&nbsp;",
+            action(function()
+                {
+                    var by = _t.activeYearPair;
+                    _t.showByYear(by.button, by.year);
+                }));
+        var yearDiv = _t.createButton("По<br />Фамилии",
+            action(function()
+                {
+                    var bl = _t.activeLetterPair;
+                    _t.showByLetter(bl.button, bl.letter);
+                }));
+
+        yearDiv.appendChild( _t.createYear() );
+        titleDiv.appendChild( _t.createAbc() );
+
+        _t.gl.appendChild(yearDiv);
+        _t.gl.appendChild(titleDiv);
+        
+        yearDiv.style.display = "none";
+        titleDiv.style.display = "block";
+
+        _t.showByLetter(_t.activeLetterPair.button,_t.activeLetterPair.letter);
+    },
+    createButton: function(caption, action)
+    {
+        var btn = document.createElement("button");
+        btn.innerHTML = caption;
+        btn.onclick = action;
+        addClass(btn, "red");
+        addClass(btn, "glbtn");
+        var div = document.createElement("div");
+        div.appendChild(btn);
+        
+        return div;
+    },
+    deepsort: function(db, f)
+    {
+        var _t = this;
+
+        for(var i in db)
+        {
+            if(typeof db[i].describe !== "string")
             {
-                return function()
-                    {
-                        toggle(r);
-                        toggle(e);
-                        if(_t.active_button)
-                            removeClass(_t.active_button, "red");
-                        addClass(r.firstChild, "red");
-                        _t.active_button = r.firstChild;
-                        _t.showByLetter(_t.activeLetterPair.button,
-                                        _t.activeLetterPair.letter);
-                    };
-            }(year_div, title_div);
+                db[i].describe = _t.deepsort(db[i].describe, f);
+            }
+        }
+        return db.sort(f);
+    },
+    flatten: function(db)
+    {
+        var _t = this;
+
+        var newDB = new Array();
+        for(var i in db)
+        {
+            if(db[i].year)
+            {
+                newDB.push(db[i]);
+            }
+            else
+            {
+                newDB = newDB.concat( _t.flatten(db[i].describe) );
+            }
+        }
+        return newDB;
     },
     filter: function(arr, obj)
     {
@@ -118,32 +145,30 @@ var glossary =
         addClass(div, "vibor");
         
         var used = new Array();
-        for(var i in _t.db.data)
-            used.push(_t.db.data[i].title[0].toUpperCase());
+        for(var i in _t.dbTitle)
+            used.push(_t.dbTitle[i].title[0].toUpperCase());
         
         used = getDistinctArray(used);
        
         var arr = new Array();
-        for(var i in _t.db.abc)
+        for(var i in _t.abc)
         {
-            var obj = {"text": _t.db.abc[i]};
-            if(used.indexOf(_t.db.abc[i]) != -1)
+            var obj = {"text": _t.abc[i]};
+            if(used.indexOf(_t.abc[i]) != -1)
             {
                 obj.action = function(c){
                                 return function(e){_t.showByLetter(this, c);};
-                              }(_t.db.abc[i]);
+                              }(_t.abc[i]);
             }
             arr.push(obj);
         }
         
-        _t.activeLetterPair = null;
-        var r =_t.appendButtons(div, arr);
-        if(r)
-            r.click();
+        var b = _t.appendButtons(div, arr);
+        _t.activeLetterPair = {"button": b, "letter": arr[0].text};
         
         return div;
     },
-    createYears: function()
+    createYear: function()
     {
         var _t = this;
         
@@ -151,8 +176,8 @@ var glossary =
         addClass(div, "vibor");
         
         var used = new Array();
-        for(var i in _t.db.data)
-            used.push(_t.db.data[i].year);
+        for(var i in _t.dbYear)
+            used.push(_t.dbYear[i].year);
         
         used = getDistinctArray(used);
         
@@ -165,10 +190,8 @@ var glossary =
                               }(used[i])});
         }
         
-        _t.activeYearPair = null;
-        var r = _t.appendButtons(div, arr);
-        if(r)
-            r.click();
+        var b = _t.appendButtons(div, arr);
+        _t.activeYearPair = {"button": b, "year": used[0]};
         
         return div;
     },
@@ -203,7 +226,7 @@ var glossary =
         addClass(e, "red");
         _t.activeLetterPair = {"button": e, "letter": c};
         
-        _t.show(_t.filter(_t.db.data,
+        _t.show(_t.filter(_t.dbTitle,
                 {"title": function(e){return e[0].toUpperCase() == c;}}));
     },
     showByYear: function(e, y)
@@ -214,8 +237,7 @@ var glossary =
         addClass(e, "red");
         _t.activeYearPair = {"button": e, "year": y};
         
-        var _t = this;
-        _t.show(_t.filter(_t.db.data, {"year": function(e){return e == y;}}));
+        _t.show(_t.filter(_t.dbYear, {"year": function(e){return e == y;}}));
     },
     show: function(db)
     {
@@ -224,55 +246,58 @@ var glossary =
         if(_t.currentList)
             _t.gl.removeChild(_t.currentList);
             
-        _t.currentList = document.createElement("ol");
-        _t.gl.appendChild(_t.currentList);
-        
-        for(var i in db)
+        var show = function(db)
         {
-            var a = document.createElement("a");
-            var li = document.createElement("li");
-            a.innerHTML = db[i].title;
-            if(db[i].href)
+            var ol = document.createElement("ol");
+
+            for(var i in db)
             {
-                a.href = db[i].href;
-                li.appendChild(a);
-            }
-            else
-            {
-                a.onclick = function(e)
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.innerHTML = db[i].title;
+                if(db[i].href)
                 {
-                    if(_t.currentTerm)
-                        removeClass(_t.currentTerm, "opened");
-                    if(_t.currentTerm == this.parentNode.parentNode)
-                        _t.currentTerm = null;
+                    a.href = db[i].href;
+                    li.appendChild(a);
+                }
+                else
+                {
+                    a.onclick = function(e)
+                    {
+                        var li = this.parentNode.parentNode;
+                        var flag = hasClass(li, "opened");
+                        var all = geByTag(li.parentNode, "li");
+                        for(var i in all)
+                        {
+                                removeClass(all[i], "opened");
+                        }
+                        if(!flag)
+                        {
+                            addClass(li, "opened");
+                        }
+                    };
+                    var di = document.createElement("div");
+                    var dedi = document.createElement("div");
+                    if(typeof db[i].describe === "string")
+                    {
+                        dedi.innerHTML = db[i].describe;
+                    }
                     else
                     {
-                        addClass(this.parentNode.parentNode, "opened");
-                        _t.currentTerm = this.parentNode.parentNode;
+                        dedi.appendChild(show(db[i].describe));
                     }
-                    if(e.stopPropagation)
-                        e.stopPropagation();
-                    else
-                        e.cancelBubble = true;
-                };
-                var di = document.createElement("div");
-                di.onclick = function(e)
-                {
-                    if(_t.currentTerm == this.parentNode)
-                    {
-                        removeClass(_t.currentTerm, "opened");
-                        _t.currentTerm = null;
-                    }
-                };
-                var dedi = document.createElement("div");
-                dedi.innerHTML = db[i].describe;
-                di.appendChild(a);
-                di.appendChild(dedi);
-                li.appendChild(di);
+                    di.appendChild(a);
+                    di.appendChild(dedi);
+                    li.appendChild(di);
+                }
+                ol.appendChild(li);
+                
+                i++;
             }
-            _t.currentList.appendChild(li);
-            
-            i++;
+            return ol;
         }
+        
+        _t.currentList = show(db);
+        _t.gl.appendChild(_t.currentList);
     }
 };
