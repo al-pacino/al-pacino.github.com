@@ -4,60 +4,78 @@ var glossary =
     {
         var _t = this;
         
-        _t.abc = db.abc;
+        _t.abc = {"rus": db.abc_rus, "eng": db.abc_eng};
         _t.dbTitle = _t.deepsort(db.data, _t.compareTitle);
         _t.dbYear = _t.flatten(db.data).sort(_t.compareYear);
         _t.gl = ge("glossary");
         _t.currentList = null;
-        _t.activeLetterPair = null;
+        _t.activeRusPair = null;
+        _t.activeEngPair = null;
         _t.activeYearPair = null;
 
-        var yearDiv, titleDiv;
+        var rusBtn, rusDiv, engBtn, engDiv, yearBtn, yearDiv;
         var action = function(f)
              {
                 return function()
                     {
-                        toggle(yearDiv);
-                        toggle(titleDiv);
+                        removeClass(rusBtn, "red");
+                        removeClass(engBtn, "red");
+                        removeClass(yearBtn, "red");
+                        rusDiv.style.display = "none";
+                        engDiv.style.display = "none";;
+                        yearDiv.style.display = "none";
                         f();
                     };
             };
 
-        var titleDiv = _t.createButton("По<br />&nbsp;Году&nbsp;",
+        var rusBtn = _t.createButton("Рус.",
+            action(function()
+                {
+                    var br = _t.activeRusPair;
+                    addClass(rusBtn, "red");
+                    rusDiv.style.display = "block";
+                    _t.showByLetter(br.button, br.letter);
+                }));
+        var engBtn = _t.createButton("Анг.",
+            action(function()
+                {
+                    var be = _t.activeEngPair;
+                    addClass(engBtn, "red");
+                    engDiv.style.display = "block";;
+                    _t.showByLetter(be.button, be.letter);
+                }));
+        var yearBtn = _t.createButton("Год",
             action(function()
                 {
                     var by = _t.activeYearPair;
+                    addClass(yearBtn, "red");
+                    yearDiv.style.display = "block";
                     _t.showByYear(by.button, by.year);
                 }));
-        var yearDiv = _t.createButton("По<br />Фамилии",
-            action(function()
-                {
-                    var bl = _t.activeLetterPair;
-                    _t.showByLetter(bl.button, bl.letter);
-                }));
 
-        yearDiv.appendChild( _t.createYear() );
-        titleDiv.appendChild( _t.createAbc() );
+        rusDiv = _t.createAbc(_t.abc.rus);
+        engDiv = _t.createAbc(_t.abc.eng);
+        yearDiv = _t.createYear();
 
+        _t.gl.appendChild(rusBtn);
+        _t.gl.appendChild(engBtn);
+        _t.gl.appendChild(yearBtn);
+
+        _t.gl.appendChild(rusDiv);
+        _t.gl.appendChild(engDiv);
         _t.gl.appendChild(yearDiv);
-        _t.gl.appendChild(titleDiv);
         
-        yearDiv.style.display = "none";
-        titleDiv.style.display = "block";
-
-        _t.showByLetter(_t.activeLetterPair.button,_t.activeLetterPair.letter);
+        action(function(){})();
+        rusBtn.click();
     },
     createButton: function(caption, action)
     {
         var btn = document.createElement("button");
         btn.innerHTML = caption;
         btn.onclick = action;
-        addClass(btn, "red");
         addClass(btn, "glbtn");
-        var div = document.createElement("div");
-        div.appendChild(btn);
         
-        return div;
+        return btn;
     },
     deepsort: function(db, f)
     {
@@ -137,7 +155,7 @@ var glossary =
             return 1;
         return 0;
     },
-    createAbc: function()
+    createAbc: function(abc)
     {
         var _t = this;
         
@@ -151,20 +169,27 @@ var glossary =
         used = getDistinctArray(used);
        
         var arr = new Array();
-        for(var i in _t.abc)
+        for(var i in abc)
         {
-            var obj = {"text": _t.abc[i]};
-            if(used.indexOf(_t.abc[i]) != -1)
+            var obj = {"text": abc[i]};
+            if(used.indexOf(abc[i]) != -1)
             {
                 obj.action = function(c){
                                 return function(e){_t.showByLetter(this, c);};
-                              }(_t.abc[i]);
+                              }(abc[i]);
             }
             arr.push(obj);
         }
         
         var b = _t.appendButtons(div, arr);
-        _t.activeLetterPair = {"button": b, "letter": arr[0].text};
+        if( _t.abc.rus.indexOf(arr[0].text) !== -1 )
+        {
+            _t.activeRusPair = {"button": b, "letter": arr[0].text};
+        }
+        else
+        {
+            _t.activeEngPair = {"button": b, "letter": arr[0].text};
+        }
         
         return div;
     },
@@ -221,11 +246,23 @@ var glossary =
     showByLetter: function(e, c)
     {
         var _t = this;
-        if(_t.activeLetterPair)
-            removeClass(_t.activeLetterPair.button, "red");
+        var activeLetterPair;
+        if( _t.abc.rus.indexOf(c) !== -1 )
+        {
+            activeLetterPair = _t.activeRusPair;
+            _t.activeRusPair = {"button": e, "letter": c};
+        }
+        else
+        {
+            activeLetterPair = _t.activeEngPair;
+            _t.activeEngPair = {"button": e, "letter": c};
+        }
+        if(activeLetterPair)
+        {
+            removeClass(activeLetterPair.button, "red");
+        }
         addClass(e, "red");
-        _t.activeLetterPair = {"button": e, "letter": c};
-        
+
         _t.show(_t.filter(_t.dbTitle,
                 {"title": function(e){return e[0].toUpperCase() == c;}}));
     },

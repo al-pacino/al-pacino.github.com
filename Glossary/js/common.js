@@ -38,6 +38,14 @@ function removeClass(obj, name)
 	}
 }
 
+function toggleClass(obj, name, v) {
+  if (v === undefined)
+  {
+    v = !hasClass(obj, name);
+  }
+  (v ? addClass : removeClass)(obj, name);
+}
+
 function trim(text)
 {
 	return (text || '').replace(/^\s+|\s+$/g, '');

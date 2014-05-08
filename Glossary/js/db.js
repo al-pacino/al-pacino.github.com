@@ -1,9 +1,113 @@
 var glossary_db =
 {
-    "abc": "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ",
+    "abc_rus": "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ",
+    "abc_eng": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     "data":
 [
 	{
+        "title": "Sobolev",
+		"describe":
+		[
+			{
+				"title": "Sobolev Milan",
+				"describe": "Jeto &ndash; Sobolev Milan, god 1911",
+				"year": 1911
+			},
+			{
+				"title": "Sobolev Kornil (Kornej i Kornilij)",
+				"describe": "Jeto &ndash; Sobolev Kornil (Kornej i Kornilij), god 1741",
+				"year": 1741
+			},
+			{
+				"title": "Sobolev Tit",
+				"describe": "Jeto &ndash; Sobolev Tit, god 1891",
+				"year": 1891
+			},
+			{
+				"title": "Sobolev Svetozar",
+				"describe": "Jeto &ndash; Sobolev Svetozar, god 1701",
+				"year": 1701
+			},
+			{
+				"title": "Sobolev Ostromir",
+				"describe": "Jeto &ndash; Sobolev Ostromir, god 1701",
+				"year": 1701
+			},
+			{
+				"title": "Sobolev Jeduard",
+				"describe": "Jeto &ndash; Sobolev Jeduard, god 1991",
+				"year": 1991
+			},
+			{
+				"title": "Sobolev Dorofej",
+				"describe": "Jeto &ndash; Sobolev Dorofej, god 1801",
+				"year": 1801
+			}
+		]
+	},
+	{
+		"title": "Sazonov",
+		"describe":
+		[
+			{
+				"title": "Sazonov Rodion",
+				"describe": "Jeto &ndash; Sazonov Rodion, god 1951",
+				"year": 1951
+			},
+			{
+				"title": "Sazonov Ljubim",
+				"describe": "Jeto &ndash; Sazonov Ljubim, god 1831",
+				"year": 1831
+			},
+			{
+				"title": "Sazonov Nazar",
+				"describe": "Jeto &ndash; Sazonov Nazar, god 1881",
+				"year": 1881
+			},
+			{
+				"title": "Sazonov Svetozar",
+				"describe": "Jeto &ndash; Sazonov Svetozar, god 1991",
+				"year": 1991
+			},
+			{
+				"title": "Sazonov Fortunat",
+				"describe": "Jeto &ndash; Sazonov Fortunat, god 1831",
+				"year": 1831
+			}
+		]
+	},
+	{
+		"title": "Odincov",
+		"describe":
+		[
+			{
+				"title": "Odincov Sigizmund",
+				"describe": "Jeto &ndash; Odincov Sigizmund, god 1841",
+				"year": 1841
+			},
+			{
+				"title": "Odincov Samuil",
+				"describe": "Jeto &ndash; Odincov Samuil, god 1701",
+				"year": 1701
+			},
+			{
+				"title": "Odincov Jernest",
+				"describe": "Jeto &ndash; Odincov Jernest, god 1751",
+				"year": 1751
+			},
+			{
+				"title": "Odincov Jakub",
+				"describe": "Jeto &ndash; Odincov Jakub, god 1981",
+				"year": 1981
+			},
+			{
+				"title": "Odincov Vladilen",
+				"describe": "Jeto &ndash; Odincov Vladilen, god 1741",
+				"year": 1741
+			}
+		]
+	},
+    {
 		"title": "Соболев",
 		"describe":
 		[

@@ -181,6 +181,7 @@ a.start_letter:hover
 
 .glossary .glbtn
 {
+    line-height: 44px;
     float: left;
 }
 
