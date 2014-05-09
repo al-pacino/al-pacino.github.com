@@ -41,7 +41,7 @@ var glossary =
                 {
                     var be = _t.activeEngPair;
                     addClass(engBtn, "red");
-                    engDiv.style.display = "block";;
+                    engDiv.style.display = "block";
                     _t.showByLetter(be.button, be.letter);
                 }));
         var yearBtn = _t.createButton("Год",
@@ -169,11 +169,16 @@ var glossary =
         used = getDistinctArray(used);
        
         var arr = new Array();
+        var j = -1;
         for(var i in abc)
         {
             var obj = {"text": abc[i]};
             if(used.indexOf(abc[i]) != -1)
             {
+                if(j == -1)
+                {
+                    j = i;
+                }
                 obj.action = function(c){
                                 return function(e){_t.showByLetter(this, c);};
                               }(abc[i]);
@@ -184,11 +189,11 @@ var glossary =
         var b = _t.appendButtons(div, arr);
         if( _t.abc.rus.indexOf(arr[0].text) !== -1 )
         {
-            _t.activeRusPair = {"button": b, "letter": arr[0].text};
+            _t.activeRusPair = {"button": b, "letter": abc[j]};
         }
         else
         {
-            _t.activeEngPair = {"button": b, "letter": arr[0].text};
+            _t.activeEngPair = {"button": b, "letter": abc[j]};
         }
         
         return div;
