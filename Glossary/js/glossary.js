@@ -85,7 +85,7 @@ var glossary =
         {
             if(typeof db[i].describe !== "string")
             {
-                db[i].describe = _t.deepsort(db[i].describe, f);
+                // db[i].describe = _t.deepsort(db[i].describe, f);
             }
         }
         return db.sort(f);
