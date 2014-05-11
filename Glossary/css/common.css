@@ -13,6 +13,40 @@ body
 	min-width: 850px;
 }
 
+.badbrowser
+{
+    display: none;
+    position: relative;
+    width: 100%;
+    padding: 0 50px;
+    min-width: 1000px;
+    left: -50px;
+    top: -30px;
+    background: #dedede;
+    height: 150px;
+    line-height: 148px;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: solid 3px #cccccc;
+    color: #666666;
+}
+
+.badbrowser img
+{
+    position: relative;
+    top: 30px;
+}
+
+.badbrowser a
+{
+    color: #000000;
+}
+
+.badbrowser a:hover
+{
+    text-decoration: none;
+}
+
 img
 {
 	border-style: none;

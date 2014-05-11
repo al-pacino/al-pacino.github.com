@@ -6,14 +6,27 @@
 		<link rel="stylesheet" href="css/common.css" />
 		<link rel="stylesheet" href="css/glossary.css" />
 		<script src="js/common.js"></script>
+		<script src="js/badbrowser.js"></script>
 		<script src="js/db.js"></script>
 		<script src="js/glossary.js"></script>
+        <noscript>
+            <style>
+                .badbrowser
+                {
+                    display: block;
+                }
+            </style>
+        </noscript>
 	</head>
 	<body id="body">
+        <div class="badbrowser" id="badbrowser">Для просмотра данной страницы рекомендуется использовать:<a href="https://www.google.ru/intl/ru/chrome/browser/" target="_blank"><img src="design_images/chrome_logo.png" />Google Chrome</a> или <a href="http://www.apple.com/ru/safari/" target="_blank"><img src="design_images/safari_logo.png" />Safari</a>!</div>
 		<div class="wrap">
 			<div class="head"><h3>Вас приветствует программа справочник</h3></div>
 			<div class="nav" style="text-align: center;"><a href="glossary.html" class="button red">Войти в справочник</a></div>
 		</div>
 		<div class="copyright">University Edition v 2.0</div>
+        <script>
+            browsertest("badbrowser");
+        </script>
 	</body>
 </html>
