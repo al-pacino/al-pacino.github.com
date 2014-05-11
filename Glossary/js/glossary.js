@@ -5,8 +5,8 @@ var glossary =
         var _t = this;
         
         _t.abc = {"rus": db.abc_rus, "eng": db.abc_eng};
-        _t.dbTitle = _t.deepsort(db.data, _t.compareTitle);
-        _t.dbYear = _t.flatten(db.data).sort(_t.compareYear);
+        _t.dbTitle = db.data.sort(_t.compareTitle)/*_t.deepsort(db.data, _t.compareTitle);*/
+        _t.dbYear = /*_t.flatten(db.data).*/_t.dbTitle.sort(_t.compareYear);
         _t.gl = ge("glossary");
         _t.currentList = null;
         _t.activeRusPair = null;
@@ -85,7 +85,7 @@ var glossary =
         {
             if(typeof db[i].describe !== "string")
             {
-                // db[i].describe = _t.deepsort(db[i].describe, f);
+                db[i].describe = _t.deepsort(db[i].describe, f);
             }
         }
         return db.sort(f);
