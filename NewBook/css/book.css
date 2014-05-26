@@ -111,6 +111,32 @@
     z-index: 999;
 }
 
+.left_page_caption
+{
+    display: none;
+    border: solid 1px #000000;
+    border-radius: 0 0 4px 4px;
+    margin-top: 540px;
+    width: 348px;
+    margin-left: 35px;
+    color: #000000;
+    padding: 2px 5px;
+    font-size: 14px;
+}
+
+.right_page_caption
+{
+    display: none;
+    border: solid 1px #000000;
+    border-radius: 0 0 4px 4px;
+    margin-top: 540px;
+    width: 348px;
+    margin-left: 435px;
+    color: #000000;
+    padding: 2px 5px;
+    font-size: 14px;
+}
+
 .book div img
 {
     display: block;

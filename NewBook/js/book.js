@@ -1,4 +1,4 @@
-﻿var book =
+var book =
 {
 	pages_count: 178,
 	page: 1, /* from 1 to pages_count */
@@ -28,12 +28,8 @@
 	init: function(b)
 	{
 		var _t = this;
-		/*_t.pages_count = writers[writer].works[book].pages_count;
-		_t.pages_path_prefix = basic_path + writers[writer].path + writers[writer].works[book].path;
-		if(writers[writer].works[book].begin_page)
-		{
-			_t.page = writers[writer].works[book].begin_page;
-		}*/
+
+        _t.page_captions = b.page_captions;
 		_t.pages_count = b.pages_count;
 		_t.pages_path_prefix = b.path;
 		
@@ -178,7 +174,7 @@
 		var book = ge("book");		
 		book.style.width = _t.book_width+"px";
 		book.style.height = _t.book_height+"px";
-		
+
 		var canvas = document.createElement("canvas");				
 		_t.context = canvas.getContext("2d");
 		_t.canvas_width = 2 * _t.page_width;
@@ -555,6 +551,7 @@
                 });
             }
 		}
+        
 		/*if(_t.page != np)
 			alert('fail: ' + lp + ' ' + rp + ' ' + np);*/
 	},
@@ -594,6 +591,8 @@
 		_t.updateNavButtons();
 		if(_t.show_page_number)
 			_t.input_text.value = Math.max(_t.page, 1);
+
+        
 		
 		//ge("te").innerHTML = _t.bg_page + " " + _t.page + " " + user_page;
 		
@@ -668,6 +667,22 @@
             {
                 if(_t.pages_count % 2 || _t.page < _t.pages_count-1)
                     _t.showDzr();
+            }
+        }
+
+        ge("left_page_caption").style.display = "none";
+        ge("right_page_caption").style.display = "none";
+        if( _t.page_captions && !is_animation )
+        {
+            if( _t.page_captions[ np - 1 ] )
+            {
+                ge("left_page_caption").style.display = "block";
+                ge("left_page_caption").innerHTML = _t.page_captions[ np - 1];
+            }
+            if( _t.page_captions[ np ] )
+            {
+                ge("right_page_caption").style.display = "block";
+                ge("right_page_caption").innerHTML = _t.page_captions[ np ];
             }
         }
 	},
