@@ -1,6 +1,12 @@
 body
 {
 	overflow-y: scroll;
+    padding-top: 105px;
+}
+
+.topnav
+{
+    width: 820px;
 }
 
 .head h1
