@@ -1,6 +1,7 @@
 body
 {
 	overflow-y: scroll;
+    padding-top: 105px;
 }
 
 a
