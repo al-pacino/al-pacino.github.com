@@ -25,7 +25,31 @@
 	font-size: 17px;
 }
 
-.wrapper
+body
+{
+    padding-top: 105px;
+}
+
+.topwrap
+{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+}
+
+.topnav
+{
+    background: #cccccc;
+    padding: 15px;
+    border: solid 5px #999999;
+    border-top: none;
+    width: 800px;
+    margin: 0px auto;
+}
+
+.wrap
 {
 	margin: 0px auto;
 }
