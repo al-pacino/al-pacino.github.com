@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1251">
+<title>Batcher odd&ndash;even merge sort</title>
+<style>
+body
+{
+	background: #dedede;
+	margin: 0;
+	padding: 32px;
+}
+canvas
+{
+	background: #ffffff;
+	display: block;
+}
+div.select_size
+{
+	display: inline-block;
+	margin-bottom: 8px;
+	background: #ffffff;
+}
+div.select_size input
+{
+	margin: 16px;
+	width: 320px;
+}
+div.select_size span
+{
+	position: relative;
+	top: -2px;
+	margin-right: 16px;
+	font-family: Courier;
+	font-size: 24px;
+	font-weight: bold;
+}
+div.copyright
+{
+	margin-top: 32px;
+	text-align: center;
+	font-size: 12px;
+	font-family: Arial;
+}
+</style>
+</head>
+<body>
+<div class="select_size">
+<input type="range" id="range_size" min="2" max="256" value="16" />
+<span id="size"></span>
+</div>
+<canvas id="main" width="1" height="1"></canvas>
+<div class="copyright">2015 &copy; Made by <a href="http://vk.com/id13476570">Anton Todua</a></div>
+<script>
+function prepareComparators( count )
+{
+	var size = 2;
+	while( size < count ) {
+		size *= 2;
+	}
+	var comparators = [];
+	for( var i = 0; i < size; i += 2 ) {
+		comparators.push( [i, i + 1] );
+	}
+	comparators.push( false );
+	var start = 0;
+	for( var k = 4; k <= size; k *= 2 ) {
+		var end = comparators.length;
+		for( var i = start; i < end; i++ ) {
+			if( comparators[i] === false ) {
+				continue;
+			}
+			var x = comparators[i][0] * 2;
+			var y = comparators[i][1] * 2;
+			if( y < size ) {
+				comparators.push( [x, y] );
+			}
+			if( y < size - 1 ) {
+				comparators.push( [x + 1, y + 1] );
+			} else {
+				comparators.push( false );
+			}
+		}
+		comparators.push( false );
+		start = end;
+		for( var i = 0; i < size; i += k ) {
+			for( var j = i + 1; j < ( i + k - 1 ); j += 2 ) {
+				comparators.push( [j, j + 1] );
+			}
+		}
+		comparators.push( false );
+	}
+
+	var max = [];
+	for( var i = 0; i < size; i++ ) {
+		max[i] = 0;
+	}
+	var extendedComparators = [];
+	for( var i = 0; i < comparators.length; i++ ) {	
+		if( comparators[i] === false ) {
+			var newMax = 0;
+			for( var j = 0; j <= size; j++ ) {
+				if( newMax < max[j] ) {
+					newMax = max[j];
+				}
+			}
+			for( var j = 0; j <= size; j++ ) {
+				max[j] = newMax;
+			}
+			if( extendedComparators.length > 0
+				&& extendedComparators[extendedComparators.length - 1] != "barrier" )
+			{
+				extendedComparators.push( "barrier" );
+			}
+			continue;
+		}
+		if( comparators[i][1] >= count ) {
+			continue;
+		}
+		var a = comparators[i][0];
+		var b = comparators[i][1];
+		var x = 0;
+		for( var j = a; j <= b; j++ ) {
+			if( x < max[j] ) {
+				x = max[j];
+			}
+		}
+		x++;
+		for( var j = a; j <= b; j++ ) {
+			max[j] = x;
+		}
+		extendedComparators.push( { "a" : a, "b" : b, "l" : x } );
+	}
+	if( extendedComparators[extendedComparators.length - 1] == "barrier" ) {
+		extendedComparators.splice( extendedComparators.length - 1, 1 );
+	}
+	return extendedComparators;
+}
+
+function getDevisible( value, divisor )
+{
+	return ( Math.ceil( value / divisor ) * divisor );
+}
+
+function update( count )
+{
+	// settings
+	var margin = 8;
+	var fontFamily = "Courier";
+	var indexLine = { "width" : 1, "color" : "#0000ff", "interval" : 24 };
+	var comparatorLine = { "width" : 2, "color" : "#ff0000", "interval" : 16 };
+	var cycleLine = { "width" : 2, "color" : "#00ff00" };
+
+	// Batcher
+	var comparators = prepareComparators( count );
+	var numberOfLines = comparators[comparators.length - 1].l;
+
+	// draw
+	var canvas = document.getElementById( "main" );
+	var ctx = canvas.getContext( "2d" );
+	var fontSize = Math.floor( ( indexLine.width + indexLine.interval ) * 0.8 );
+	ctx.font = fontSize + "px " + fontFamily;
+	var textWidth = getDevisible( ctx.measureText( "" + ( count - 1 ) ).width,
+		margin );
+	var comparatosWidth = numberOfLines * ( comparatorLine.width
+		+ comparatorLine.interval ) - comparatorLine.interval;
+	var width = 5 * margin + comparatosWidth + textWidth;
+	var height = count * ( indexLine.width + indexLine.interval );
+
+	canvas.width = width;
+	canvas.height = height;
+	ctx.clearRect( 0, 0, width, height );
+
+	// draw index lines
+	ctx.lineWidth = indexLine.width;
+	ctx.strokeStyle = indexLine.color;
+	ctx.font = fontSize + "px " + fontFamily;
+	ctx.textBaseline = "middle";
+	var stepY = indexLine.width + indexLine.interval;
+	var offsetY = Math.floor( ( stepY ) / 2 );
+	var y = offsetY;
+	var offsetX = 2 * margin + textWidth;
+	for( var i = 0; i < count; i++ ) {
+		var text = i + "";
+		var textX = margin + textWidth - ctx.measureText( text ).width;
+		ctx.fillText( text, textX, y );
+		ctx.beginPath();
+		ctx.moveTo( offsetX, y + indexLine.width / 2 );
+		ctx.lineTo( width - margin, y + indexLine.width / 2 );
+		ctx.stroke();
+		y += stepY;
+	}
+
+	// draw comparators and cycles
+	offsetX += margin;
+	var max = 0;
+	for( var i = 0; i < comparators.length; i++ ) {
+		if( comparators[i] == "barrier" ) {
+			// draw cycle
+			ctx.lineWidth = cycleLine.width;
+			ctx.strokeStyle = cycleLine.color;
+			var x = offsetX + max * ( comparatorLine.interval + comparatorLine.width )
+				+ Math.floor( ( comparatorLine.interval + comparatorLine.width ) / 2 ) +
+				+ cycleLine.width / 2;
+			ctx.beginPath();
+			ctx.moveTo( x, margin );
+			ctx.lineTo( x, height - margin );
+			ctx.stroke();
+			continue;
+		}
+		// draw comparator
+		var line = comparators[i].l - 1;
+		if( max < line ) {
+			max = line;
+		}
+		ctx.lineWidth = comparatorLine.width;
+		ctx.strokeStyle = comparatorLine.color;
+		ctx.beginPath();
+		var x = offsetX + line * ( comparatorLine.interval + comparatorLine.width )
+			+ comparatorLine.width / 2;
+		ctx.moveTo( x, comparators[i].a * stepY + offsetY );
+		ctx.lineTo( x, comparators[i].b * stepY + offsetY );
+		ctx.stroke();
+	}
+}
+
+function updateSize()
+{
+	var range_size = document.getElementById( "range_size" );
+	var size = document.getElementById( "size" );
+	size.innerHTML = range_size.value;
+	update( parseInt( range_size.value ) );
+}
+
+document.getElementById( "range_size" ).oninput = function(){ updateSize(); }
+document.getElementById( "range_size" ).onchange = function(){ updateSize(); }
+updateSize();
+</script>
+</body>
+</html>
