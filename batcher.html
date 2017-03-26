@@ -87,6 +87,108 @@ function CalculateBatcherSchedule( size )
 		cycles[index1] = cycle + 1;
 		cycles[index2] = cycle + 1;
 	};
+	var sort = function( size ) {
+		var p = 1;
+		while( p < size ) {
+			p *= 2;
+		}
+		p = Math.floor( p / 2 );
+		var initQ = p;
+		for( ; p > 0; p = Math.floor( p / 2 ) ) {
+			var q = initQ;
+			var r = 0;
+			var d = p;
+			while( true ) {
+				for( var i = 0; i < size - d; i++ ) {
+					if( ( i & p ) != r ) {
+						continue;
+					}
+					comparator( i, i + d );
+				}
+				if( q != p ) {
+					d = q - p;
+					q = Math.floor( q / 2 );
+					r = p;
+					continue;
+				}
+				break;
+			}
+		}
+	};
+
+	sort( size );
+	schedule.sort(
+		function( x, y ) {
+			if( x.cycle < y.cycle ) {
+				return -1;
+			} else if( y.cycle < x.cycle ) {
+				return 1;
+			}
+			if( x.index1 < y.index1 ) {
+				return -1;
+			} else if( y.index1 < x.index1 ) {
+				return 1;
+			}
+			if( x.index2 < y.index2 ) {
+				return -1;
+			} else if( y.index2 < x.index2 ) {
+				return 1;
+			}
+			return 0;
+		} );
+	var scheduleByCycle = [];
+	var check = function( a, b ) {
+		return ( b.index2 < a.index1 || a.index2 < b.index1 );
+	};
+	for( var i in schedule ) {
+		var comparator = { "index1" : schedule[i].index1,
+			"index2" : schedule[i].index2 };
+		var cycle = schedule[i].cycle;
+		if( typeof scheduleByCycle[cycle] === "undefined" ) {
+			scheduleByCycle[cycle] = [];
+		}
+		var wasAdded = false;
+		for( var j in scheduleByCycle[cycle] ) {
+			var intersectionExist = false;
+			for( var k in scheduleByCycle[cycle][j] ) {
+				if( !check( scheduleByCycle[cycle][j][k], schedule[i] ) ) {
+					intersectionExist = true;
+					break;
+				}
+			}
+			if( !intersectionExist ) {
+				scheduleByCycle[cycle][j].push( comparator );
+				wasAdded = true;
+				break;
+			}
+		}
+		if( !wasAdded ) {
+			scheduleByCycle[cycle].push( [ comparator ] );
+		}
+	}
+	return scheduleByCycle;
+}
+
+function CalculateBatcherSchedule1( size )
+{
+	var cycles = [];
+	var array = [];
+	var tmpArray = [];
+	for( var i = 0; i < size; i++ ) {
+		cycles[i] = 0;
+		array[i] = i;
+	}
+
+	var schedule = [];
+
+	var comparator = function( x, y ) {
+		var index1 = array[x];
+		var index2 = array[y];
+		var cycle = Math.max( cycles[index1], cycles[index2] );
+		schedule.push( { "index1" : index1, "index2" : index2, "cycle" : cycle } );
+		cycles[index1] = cycle + 1;
+		cycles[index2] = cycle + 1;
+	};
 	var merge = function( begin, end, border ) {
 		if( border == begin || border == end ) {
 			return;
