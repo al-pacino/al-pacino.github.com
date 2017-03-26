@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+	<script src="db.js"></script>
+	<style>
+hmtl, body {
+	margin: 0;
+	padding: 0;
+	background: #ccc;
+	font-family: Tahoma;
+}
+
+.question {
+	margin: 25px;
+	border: solid 1px #666;
+	background: #dedede;
+}
+
+.question span {
+	display: block;
+	padding: 8px;
+}
+
+.question .caption {
+	border-bottom: solid 1px #666;
+	background: #fff;
+}
+
+.question .right_option {
+	background: #fff;
+}
+
+	</style>
+  </head>
+  <body>
+    <script language="javascript">
+for( var i in Questions ) {
+var question = Questions[i];
+	document.write( '<div class="question">' );
+	document.write( '<span class="caption">' + question.question + '</span>' );
+	for( var qi in question.answers ) {
+		if( question.answers[qi][0] == '!' ) {
+			document.write( '<span class="right_option">'
+				+ question.answers[qi].substr( 1 ) + '</span>' );
+		} else {
+			document.write( '<span>' + question.answers[qi] + '</span>' );
+		}
+	}
+	document.write( '</div>' );
+}
+	</script>	
+  </body>
+</html>
