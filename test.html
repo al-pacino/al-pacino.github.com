@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Test</title>
-	<script src="db.js"></script>
+	<script src="new_db.js"></script>
 	<style>
 hmtl, body {
 	margin: 0;
@@ -29,7 +29,7 @@ hmtl, body {
 }
 
 .question .right_option {
-	background: #fff;
+	background: #ffc;
 }
 
 	</style>
@@ -37,18 +37,16 @@ hmtl, body {
   <body>
     <script language="javascript">
 for( var i in Questions ) {
-var question = Questions[i];
-	document.write( '<div class="question">' );
-	document.write( '<span class="caption">' + question.question + '</span>' );
-	for( var qi in question.answers ) {
-		if( question.answers[qi][0] == '!' ) {
-			document.write( '<span class="right_option">'
-				+ question.answers[qi].substr( 1 ) + '</span>' );
-		} else {
-			document.write( '<span>' + question.answers[qi] + '</span>' );
-		}
+	var question = Questions[i];
+	document.writeln( '    <div class="question">' );
+	document.writeln( '      <span class="caption">'
+		+ ( parseInt( i ) + 1 ) + '. ' + question.question + '</span>' );
+	var answer = question.answers[Answers[i] - 1];
+	if( answer[0] == '!' ) {
+		answer = answer.substr( 1 );
 	}
-	document.write( '</div>' );
+	document.writeln( '      <span class="right_option">' + answer + '</span>' );
+	document.writeln( '    </div>' );
 }
 	</script>	
   </body>
